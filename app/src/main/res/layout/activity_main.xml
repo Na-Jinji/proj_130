@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:outlineProvider="background"
+    android:background="@drawable/logo">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="41dp"
+        android:gravity="top"
+        android:lineSpacingExtra="0sp"
+        android:text="@string/title"
+        android:textAppearance="@style/title" />
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/search_box_"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp">
+        
+        <ImageView
+            android:id="@+id/search_box"
+            android:layout_width="350dp"
+            android:layout_height="44dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/search_box"/>
+
+        <ImageView
+            android:id="@+id/search_icon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/search_icon"
+            android:layout_alignLeft="@id/search_box"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <EditText
+            android:id="@+id/editSearch"
+            android:layout_width="300dp"
+            android:layout_height="44dp"
+            android:layout_toRightOf="@id/search_icon"
+            android:layout_centerVertical="true"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:inputType="text"
+            android:typeface="serif"
+            android:hint="Search for Recommendations"
+            android:textColor="#FFFFFF"
+            android:background="@android:color/transparent"/>
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/txtPlaces"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_box_"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="40dp"
+        android:text="@string/places"
+        android:textAppearance="@style/places"
+        android:lineSpacingExtra="3sp"/>
+    <ImageView
+        android:id="@+id/imgPlaces"
+        android:visibility="invisible"
+        android:layout_width="314dp"
+        android:layout_height="200dp"
+        android:layout_below="@id/txtPlaces"
+        android:background="@drawable/show_result"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@id/txtPlaces"/>
+    <LinearLayout
+        android:id="@+id/layoutPlaces"
+        android:layout_width="314dp"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:layout_below="@id/txtPlaces"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@id/txtPlaces"
+        android:gravity="center"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/place0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/recommendations"
+            android:visibility="invisible"
+            android:layout_marginBottom="10dp"
+            android:onClick="onClick"/>
+        <TextView
+            android:id="@+id/place1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/recommendations"
+            android:visibility="invisible"
+            android:layout_marginBottom="10dp"
+            android:onClick="onClick"/>
+        <TextView
+            android:id="@+id/place2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/recommendations"
+            android:visibility="invisible"
+            android:layout_marginBottom="10dp"
+            android:onClick="onClick"/>
+        <TextView
+            android:id="@+id/place3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/recommendations"
+            android:visibility="invisible"
+            android:layout_marginBottom="10dp"
+            android:onClick="onClick"/>
+        <TextView
+            android:id="@+id/place4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/recommendations"
+            android:visibility="invisible"
+            android:onClick="onClick"/>
+
+    </LinearLayout>
+    
+</RelativeLayout>
