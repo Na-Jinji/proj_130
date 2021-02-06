@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,6 +14,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -31,9 +39,12 @@ public class MainActivity extends AppCompatActivity {
     EditText editSearch;
     TextView txtSubTitle;
     RelativeLayout layout;
+    Retrofit flask;
+    RetrofitAPI flaskAPI;
 
     TextView[] txtPlaces = new TextView[5];
-    ArrayList<String> titleList;
+    //ArrayList<String> titleList;
+    List<String> titleList;
     static int MAX = 5;
 
     @Override
@@ -56,14 +67,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<List<String>> call, @NonNull Response<List<String>> response){
                 if(response.isSuccessful()){
-                    List<String> data = response.body();
+                    titleList = response.body();
                     Log.d("TEST2", "성공");
-                    Log.d("TEST2", data.get(0));
-                    /*
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(RecommendActivity.this, android.R.layout.simple_dropdown_item_1line, data);
-                    edit.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                     */
+                    Log.d("TEST2", titleList.get(0));
                 }
             }
 
@@ -73,6 +79,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Flask Server
+        flask = new Retrofit.Builder()
+                .baseUrl("http://3.36.136.219:5000")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        flaskAPI = flask.create(RetrofitAPI.class);
 
         layout = (RelativeLayout)findViewById(R.id.layout);
         search_icon = (ImageView)findViewById(R.id.search_icon);

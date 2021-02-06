@@ -44,37 +44,6 @@ public class RecommendActivity extends AppCompatActivity {
         edit =  (AutoCompleteTextView) findViewById(R.id.edit);
         viewPager2 = findViewById(R.id.view_pager);
 
-
-        /*
-        // Springboot RestAPI
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://3.36.136.219:8080")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
-
-        retrofitAPI.getTitles().enqueue(new Callback<List<String>>(){
-            @Override
-            public void onResponse(@NonNull Call<List<String>> call, @NonNull Response<List<String>> response){
-                if(response.isSuccessful()){
-                    List<String> data = response.body();
-                    Log.d("TEST2", "성공");
-                    Log.d("TEST2", data.get(0));
-
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(RecommendActivity.this, android.R.layout.simple_dropdown_item_1line, data);
-                    edit.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<String>> call, Throwable t){
-                t.printStackTrace();
-            }
-        });
-*/
-
         // Flask Server
         flask = new Retrofit.Builder()
                 .baseUrl("http://3.36.136.219:5000")
