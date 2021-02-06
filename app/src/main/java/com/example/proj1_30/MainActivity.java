@@ -1,5 +1,6 @@
 package com.example.proj1_30;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -211,5 +212,8 @@ public class MainActivity extends AppCompatActivity {
         String value = tmp.getText().toString();
 
         // 추천지 보여준다
+        Intent recommend_intent = new Intent(getApplicationContext(), RecommendActivity.class);
+        recommend_intent.putExtra("value", value);
+        startActivity(recommend_intent);
     }
 }

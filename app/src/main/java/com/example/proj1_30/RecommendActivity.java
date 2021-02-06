@@ -1,12 +1,9 @@
 package com.example.proj1_30;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +27,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RecommendActivity extends AppCompatActivity {
     ViewPager2 viewPager2;
-    AutoCompleteTextView edit;
     List<String> recommend_list;
     ArrayList<Data> list;
     Retrofit flask;
@@ -41,8 +37,11 @@ public class RecommendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommend);
 
-        edit =  (AutoCompleteTextView) findViewById(R.id.edit);
         viewPager2 = findViewById(R.id.view_pager);
+
+        Intent main = getIntent();
+        String item = main.getExtras().getString("value");
+
 
         // Flask Server
         flask = new Retrofit.Builder()
@@ -53,13 +52,15 @@ public class RecommendActivity extends AppCompatActivity {
 
         flaskAPI = flask.create(RetrofitAPI.class);
 
+        /*
         edit.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String item = ((TextView)view).getText().toString();
                 Log.d("TEXT INPUT", item);
-
+*/
+        /*
                 JsonObject input = new JsonObject();
                 input.addProperty("name", item);
 
@@ -97,9 +98,11 @@ public class RecommendActivity extends AppCompatActivity {
                     }
                 });
 
+         */
+/*
             }
         });
-
+*/
 
         // 추천지 5군데 페이지 설정
         int dpValue = 54;
@@ -130,6 +133,6 @@ public class RecommendActivity extends AppCompatActivity {
         list.add(new Data(android.R.color.holo_blue_light, "5 Page"));
         viewPager2.setAdapter(new ViewPagerAdapter(list));
 
-        viewPager2.setVisibility(View.INVISIBLE);
+        //viewPager2.setVisibility(View.INVISIBLE);
     }
 }
