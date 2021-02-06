@@ -71,16 +71,6 @@ public class RecommendActivity extends AppCompatActivity {
         });
 
         viewPager2.setPageTransformer(compositePageTransformer);
-/*
-        list = new ArrayList<>();
-        list.add(new Data(android.R.color.black,"1 Page"));
-        list.add(new Data(android.R.color.holo_red_light, "2 Page"));
-        list.add(new Data(android.R.color.holo_green_dark, "3 Page"));
-        list.add(new Data(android.R.color.holo_orange_dark, "4 Page"));
-        list.add(new Data(android.R.color.holo_blue_light, "5 Page"));
-        viewPager2.setAdapter(new ViewPagerAdapter(list));
-*/
-        //viewPager2.setVisibility(View.INVISIBLE);
 
         JsonObject input = new JsonObject();
         input.addProperty("name", item);
@@ -105,7 +95,6 @@ public class RecommendActivity extends AppCompatActivity {
                     list.add(new Data(android.R.color.holo_orange_dark, recommend_list.get(3)));
                     list.add(new Data(android.R.color.holo_blue_light, recommend_list.get(4)));
                     viewPager2.setAdapter(new ViewPagerAdapter(list));
-                    //viewPager2.setVisibility(View.VISIBLE);
                 }
                 else{
                     Log.d("POST TEST", "response 실패");
@@ -119,52 +108,5 @@ public class RecommendActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        edit.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = ((TextView)view).getText().toString();
-                Log.d("TEXT INPUT", item);
-
-                JsonObject input = new JsonObject();
-                input.addProperty("name", item);
-
-                flaskAPI.postRecommend(input).enqueue(new Callback<JsonObject>(){
-                    @Override
-                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                        if(response.isSuccessful()){
-                            JsonObject object = response.body();
-                            JsonArray jsonlist= object.getAsJsonArray("recommended_landmarks");
-                            Log.d("POST TEST", list.toString());
-                            recommend_list = new ArrayList<>();
-                            for(int i = 0; i < 5; i++)
-                                recommend_list.add(jsonlist.get(i).toString());
-                            Log.d("POST TEST", recommend_list.get(0));
-                            Log.d("POST TEST", "성공");
-
-                            list = new ArrayList<>();
-                            list.add(new Data(android.R.color.black,recommend_list.get(0)));
-                            list.add(new Data(android.R.color.holo_red_light, recommend_list.get(1)));
-                            list.add(new Data(android.R.color.holo_green_dark, recommend_list.get(2)));
-                            list.add(new Data(android.R.color.holo_orange_dark, recommend_list.get(3)));
-                            list.add(new Data(android.R.color.holo_blue_light, recommend_list.get(4)));
-                            viewPager2.setAdapter(new ViewPagerAdapter(list));
-                            viewPager2.setVisibility(View.VISIBLE);
-                        }
-                        else{
-                            Log.d("POST TEST", "response 실패");
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<JsonObject> call, Throwable t) {
-                        Log.d("POST TEST", "실패");
-                        t.printStackTrace();
-                    }
-                });
-            }
-        });
-        */
     }
 }
