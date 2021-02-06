@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -15,17 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.CompositePageTransformer;
-import androidx.viewpager2.widget.MarginPageTransformer;
-import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,8 +31,7 @@ public class MainActivity extends AppCompatActivity {
     Retrofit flask;
     RetrofitAPI flaskAPI;
 
-    TextView[] txtPlaces = new TextView[5];
-    //ArrayList<String> titleList;
+    TextView[] txtPlaces = new TextView[MAX];
     List<String> titleList;
     static int MAX = 5;
 
@@ -52,9 +39,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Title 파일 읽기
-        //titleList = readTitleFile();
 
         // Springboot RestAPI
         Retrofit retrofit = new Retrofit.Builder()
@@ -133,31 +117,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public ArrayList<String> readTitleFile() {
-        ArrayList<String> list = new ArrayList<>();
-
-        try {
-            InputStream in = getResources().openRawResource(R.raw.title);
-
-            if(in != null) {
-                InputStreamReader stream = new InputStreamReader(in, "utf-8");
-                BufferedReader buffer = new BufferedReader(stream);
-
-                String read;
-                while((read = buffer.readLine()) != null) {
-                    list.add(read);
-                    // Log.d("AAAA", read);
-                }
-                in.close();
-            }
-        } catch (Exception e) {
-            Log.e("AAAA", e.getMessage());
-            return null;
-        }
-
-        return list;
-    }
-
     public void checkPlace() {
         String txt = editSearch.getText().toString();
         if (txt.length() <= 0 || txt.equals("")) {
@@ -180,11 +139,13 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<String> getSimilarPlaces(String place) {
         ArrayList<String> value = new ArrayList<>();
 
+        Log.d("AAAA", String.valueOf(titleList.size()));
         // 비슷한 관광지 받아오기
         for(String name : titleList) {
             if(name.contains(place))
                 value.add(name);
         }
+        Log.d("AAAA", String.valueOf(value.size()));
         return value;
     }
 
