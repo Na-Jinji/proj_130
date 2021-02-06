@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -16,6 +18,13 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     ImageView search_icon, imgPlaces;
@@ -33,7 +42,37 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Title 파일 읽기
-        titleList = readTitleFile();
+        //titleList = readTitleFile();
+
+        // Springboot RestAPI
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://3.36.136.219:8080")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+
+        retrofitAPI.getTitles().enqueue(new Callback<List<String>>(){
+            @Override
+            public void onResponse(@NonNull Call<List<String>> call, @NonNull Response<List<String>> response){
+                if(response.isSuccessful()){
+                    List<String> data = response.body();
+                    Log.d("TEST2", "성공");
+                    Log.d("TEST2", data.get(0));
+                    /*
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(RecommendActivity.this, android.R.layout.simple_dropdown_item_1line, data);
+                    edit.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                     */
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t){
+                t.printStackTrace();
+            }
+        });
+
 
         layout = (RelativeLayout)findViewById(R.id.layout);
         search_icon = (ImageView)findViewById(R.id.search_icon);

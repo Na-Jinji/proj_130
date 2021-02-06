@@ -45,6 +45,7 @@ public class RecommendActivity extends AppCompatActivity {
         viewPager2 = findViewById(R.id.view_pager);
 
 
+        /*
         // Springboot RestAPI
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://3.36.136.219:8080")
@@ -72,7 +73,7 @@ public class RecommendActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
-
+*/
 
         // Flask Server
         flask = new Retrofit.Builder()
