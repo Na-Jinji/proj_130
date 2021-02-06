@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/some_id"
+        android:id="@+id/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="48dp"
         android:text="이짝워뗘"
-        android:textAppearance="@style/some_id"
+        android:textAppearance="@style/title"
         android:gravity="top"
         android:textColor="#FFFFFF"/>
 

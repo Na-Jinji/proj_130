@@ -33,6 +33,8 @@ public class RecommendActivity extends AppCompatActivity {
     AutoCompleteTextView edit;
     List<String> recommend_list;
     ArrayList<Data> list;
+    Retrofit flask;
+    RetrofitAPI flaskAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,13 +75,13 @@ public class RecommendActivity extends AppCompatActivity {
 
 
         // Flask Server
-        Retrofit flask = new Retrofit.Builder()
+        flask = new Retrofit.Builder()
                 .baseUrl("http://3.36.136.219:5000")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
 
-        RetrofitAPI flaskAPI = flask.create(RetrofitAPI.class);
+        flaskAPI = flask.create(RetrofitAPI.class);
 
         edit.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
