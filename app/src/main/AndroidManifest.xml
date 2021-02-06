@@ -20,11 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".RecommendActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-        </activity>
     </application>
 
 </manifest>
