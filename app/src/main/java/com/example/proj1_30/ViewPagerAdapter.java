@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class ViewPagerAdapter extends RecyclerView.Adapter<ViewHolderPage> {
-
     private ArrayList<Data> listData;
 
     ViewPagerAdapter(ArrayList<Data> data){
