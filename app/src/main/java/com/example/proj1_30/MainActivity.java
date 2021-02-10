@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
@@ -135,17 +134,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 return false;
-            }
-        });
-
-        // focus 확인
-        editSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean isFocus) {
-                if(isFocus) {
-                    Log.d("AAAA", "isFocus - True");
-                    layout.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.discover_sc));
-                }
             }
         });
     }
