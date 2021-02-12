@@ -44,9 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int MAX = 5;
 
-    /////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

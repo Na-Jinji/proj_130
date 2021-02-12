@@ -21,16 +21,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends AppCompatActivity{
     Place place;
     Long place_id;
-
-    // view
-    ImageView card_view_image1;
-    ImageView card_view_image2;
-    ImageView card_view_image3;
-    ImageView card_view_image4;
-    ImageView card_view_image5;
 
     TextView card_view_address_text;
     TextView card_view_tag_text;
@@ -46,12 +39,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         place_id = Long.parseLong(intent.getExtras().getString("place_id"));
-
-        card_view_image1 = (ImageView) findViewById(R.id.card_view_image1);
-        card_view_image2 = (ImageView) findViewById(R.id.card_view_image2);
-        card_view_image3 = (ImageView) findViewById(R.id.card_view_image3);
-        card_view_image4 = (ImageView) findViewById(R.id.card_view_image4);
-        card_view_image5 = (ImageView) findViewById(R.id.card_view_image5);
+        place_id = Long.valueOf(1);
         card_view_address_text = (TextView) findViewById(R.id.card_view_address_text);
         card_view_tag_text = (TextView) findViewById(R.id.card_view_tag_text);
         card_view_phone_text = (TextView) findViewById(R.id.card_view_phone_text);
@@ -68,26 +56,6 @@ public class DetailsActivity extends AppCompatActivity {
             public void onResponse(Call<Place> call, Response<Place> response) {
                 place = response.body();
 
-                Glide.with(context)
-                        .load(place.getPicture().get(0).getUrl())
-                        .into(card_view_image1);
-                card_view_image1.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                Glide.with(context)
-                        .load(place.getPicture().get(1).getUrl())
-                        .into(card_view_image2);
-                card_view_image2.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                Glide.with(context)
-                        .load(place.getPicture().get(2).getUrl())
-                        .into(card_view_image3);
-                card_view_image3.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                Glide.with(context)
-                        .load(place.getPicture().get(3).getUrl())
-                        .into(card_view_image4);
-                card_view_image4.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                Glide.with(context)
-                        .load(place.getPicture().get(4).getUrl())
-                        .into(card_view_image5);
-                card_view_image5.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 ArrayList<String> data = new ArrayList<>();
                 data.add(place.getPicture().get(0).getUrl());
                 data.add(place.getPicture().get(1).getUrl());
@@ -102,11 +70,11 @@ public class DetailsActivity extends AppCompatActivity {
                 card_view_sum_text.setText(place.getSum());
                 card_view_details_text.setText(place.getDetails());
 
-                Log.d("ViewActivity", response.body().toString());
+                Log.d("DetailsActivity", response.body().toString());
             }
             @Override
             public void onFailure(Call<Place> call, Throwable t) {
-                Log.d("ViewActivity", t.toString());
+                Log.d("DetailsActivity", t.toString());
             }
         });
     }
