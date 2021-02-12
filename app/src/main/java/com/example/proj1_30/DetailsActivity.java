@@ -11,17 +11,25 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.UiThread;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.MapFragment;
+import com.naver.maps.map.NaverMap;
+import com.naver.maps.map.OnMapReadyCallback;
+import com.naver.maps.map.overlay.Marker;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailsActivity extends AppCompatActivity{
+public class DetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
     Place place;
     Long place_id;
 
@@ -47,8 +55,7 @@ public class DetailsActivity extends AppCompatActivity{
         card_view_sum_text = (TextView) findViewById(R.id.card_view_sum_text);
         card_view_details_text = (TextView) findViewById(R.id.card_view_details_text);
 
-        final Context context = this;
-
+        // api 클라이언트 생성 후 call 객체로 비동기 통신
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<Place> call_place = apiInterface.getPlace(place_id);
         call_place.enqueue(new Callback<Place>() {
@@ -77,6 +84,19 @@ public class DetailsActivity extends AppCompatActivity{
                 Log.d("DetailsActivity", t.toString());
             }
         });
+        MapFragment mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+        if (mapFragment == null) {
+            mapFragment = MapFragment.newInstance();
+            getSupportFragmentManager().beginTransaction().add(R.id.map_fragment, mapFragment).commit();
+        }
+    }
+
+    @UiThread
+    @Override
+    public void onMapReady(@NonNull NaverMap naverMap) {
+        Marker marker = new Marker();
+        marker.setPosition(new LatLng(36.763695, 127.281796));
+        marker.setMap(naverMap);
     }
 
     public String tagStr(String tag) {

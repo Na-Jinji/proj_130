@@ -53,7 +53,7 @@ dependencies {
     }
 
     // naver map api
-    implementation 'com.naver.maps:map-sdk:3.9.0'
+    implementation 'com.naver.maps:map-sdk:3.10.2'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
