@@ -6,14 +6,18 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity"
+    android:background="@drawable/discover_sc">
 
-    <com.kakao.usermgmt.LoginButton
+    <Button
         android:id="@+id/btn_kakao_login"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@drawable/kakao_login_medium_wide"/>
     <Button
         android:id="@+id/btn_kakao_login_out"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="카카오 로그아웃"/>
