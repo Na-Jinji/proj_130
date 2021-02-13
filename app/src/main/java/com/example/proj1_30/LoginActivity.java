@@ -138,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
                         // 사용자정보 요청에 성공한 경우,
                         @Override
                         public void onSuccess(MeV2Response result) {
-                            Log.e("KAKAO_API", "사용자 아이디: " + result.getId());
+                            Log.d("KAKAO_API", "사용자 아이디: " + result.getId());
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
                             UserAccount kakaoAccount = result.getKakaoAccount();
@@ -148,12 +148,15 @@ public class LoginActivity extends AppCompatActivity {
                                 String email = kakaoAccount.getEmail();
 
                                 if(email != null){
-                                    Log.i("KAKAO_API", "email: " + email);
+                                    Log.d("KAKAO_API", "email: " + email);
+                                    ((GlobalApplication)LoginActivity.this.getApplication()).setEmail(email);
                                 }else if(kakaoAccount.emailNeedsAgreement() == OptionalBoolean.TRUE){
                                     // 동의 요청 후 이메일 획득 가능
                                     // 단, 선택 동의로 설정되어 있다면 서비스 이용 시나리오 상에서 반드시 필요한 경우에만 요청해야 합니다.
+                                    Log.d("KAKAO_API", "선택적");
                                 }else{
                                     // 이메일 획득 불가
+                                    Log.d("KAKAO_API", "이메일 획득 불가");
                                 }
 
                                 // 프로필
@@ -163,10 +166,13 @@ public class LoginActivity extends AppCompatActivity {
                                     Log.d("KAKAO_API", "nickname: " + profile.getNickname());
                                     Log.d("KAKAO_API", "profile image: " + profile.getProfileImageUrl());
                                     Log.d("KAKAO_API", "thumbnail image: " + profile.getThumbnailImageUrl());
+                                    ((GlobalApplication)LoginActivity.this.getApplication()).setProfile(profile);
                                 }else if(kakaoAccount.profileNeedsAgreement() == OptionalBoolean.TRUE){
                                     // 동의 요청 후 프로필 정보 획득 가능
+                                    Log.d("KAKAO_API", "선택적");
                                 }else{
                                     // 프로필 획득 불가
+                                    Log.d("KAKAO_API", "프로필 획득 불가");
                                 }
                             }
                             startActivity(intent);

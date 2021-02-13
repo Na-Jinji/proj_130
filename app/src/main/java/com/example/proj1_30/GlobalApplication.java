@@ -9,9 +9,12 @@ import com.kakao.auth.IApplicationConfig;
 import com.kakao.auth.ISessionConfig;
 import com.kakao.auth.KakaoAdapter;
 import com.kakao.auth.KakaoSDK;
+import com.kakao.usermgmt.response.model.Profile;
 
 public class GlobalApplication extends Application {
     private static GlobalApplication instance;
+    private String email;
+    private Profile profile;
 
     public static GlobalApplication getGlobalApplicationContext(){
         if(instance == null){
@@ -33,6 +36,21 @@ public class GlobalApplication extends Application {
     public void onTerminate(){
         super.onTerminate();
         instance = null;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public Profile getProfile(){
+        return profile;
+    }
+
+    public void setProfile(Profile profile){
+        this.profile = profile;
     }
 
     public class KakaoSDKAdapter extends KakaoAdapter {
@@ -84,4 +102,7 @@ public class GlobalApplication extends Application {
             };
         }
     }
+
+
+
 }
