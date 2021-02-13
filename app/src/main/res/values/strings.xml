@@ -2,4 +2,5 @@
     <string name="app_name">이짝워뗘</string>
     <string name="title">이짝워뗘</string>
     <string name="places">Places</string>
+    <string name="Kakao_app_key">8fd4c4c35a90b005c51e1c8350bde3ed</string>
 </resources>
