@@ -14,6 +14,9 @@
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="62b2p9m534"/>
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/Kakao_app_key"/>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

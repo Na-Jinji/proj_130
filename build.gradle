@@ -19,6 +19,7 @@ allprojects {
         maven {
             url 'https://naver.jfrog.io/artifactory/maven/'
         }
+        maven {url 'http://devrepo.kakao.com:8088/nexus/content/groups/public/'}
     }
 }
 

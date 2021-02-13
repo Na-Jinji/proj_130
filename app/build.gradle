@@ -52,6 +52,8 @@ dependencies {
         exclude module: 'support-v4'
     }
 
+    // kakao login sdk
+    implementation group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.KAKAO_SDK_VERSION
     // naver map api
     implementation 'com.naver.maps:map-sdk:3.10.2'
     testImplementation 'junit:junit:4.12'
