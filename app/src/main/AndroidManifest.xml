@@ -12,8 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="@string/Kakao_app_key"/>
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="62b2p9m534"/>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -32,6 +32,10 @@
             </intent-filter>
             -->
         </activity>
+        <activity
+            android:name=".DetailsActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
 
 </manifest>

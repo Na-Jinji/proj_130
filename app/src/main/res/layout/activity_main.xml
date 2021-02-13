@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:outlineProvider="background"
-    android:background="@drawable/logo">
+    android:background="@drawable/discover_sc">
 
     <TextView
         android:id="@+id/title"
