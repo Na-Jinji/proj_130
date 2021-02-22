@@ -19,6 +19,9 @@ public interface RetrofitAPI {
 
     @POST("/recommender")
     Call<JsonObject> postRecommend(@Body JsonObject object);
+
+    @GET("/test/url/{title}")
+    Call<String> getUrl();
 }
 
 
