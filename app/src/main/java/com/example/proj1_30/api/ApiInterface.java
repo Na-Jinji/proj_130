@@ -13,9 +13,6 @@ import retrofit2.http.GET;
 
 // Details 서버 api interface
 public interface ApiInterface {
-    @Headers({
-            "Content-Type:application/x-www-form-urlencoded"
-    })
 
     // 기능: 모든 장소를 다 불러옴
     @GET("api/v1/place")
@@ -27,6 +24,7 @@ public interface ApiInterface {
     * }
     * 의 JsonObject로 POST 요청을 보냄
     * */
+    @Headers({"Content-Type:application/x-www-form-urlencoded"})
     @POST("api/v1/place")
     Call<Place> getPlaceByName(@Body JsonObject object);
 }
