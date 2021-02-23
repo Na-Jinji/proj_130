@@ -1,7 +1,10 @@
 package com.example.proj1_30;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,6 +21,7 @@ public class ViewHolderPage extends RecyclerView.ViewHolder {
     private ImageView image;
 
     private RelativeLayout layout;
+    private Context context;
 
     Data data;
     Bitmap bm;
@@ -27,6 +31,7 @@ public class ViewHolderPage extends RecyclerView.ViewHolder {
         title = itemView.findViewById(R.id.view_title);
         image = itemView.findViewById(R.id.reco_image);
         layout = itemView.findViewById(R.id.layout);
+        context = itemView.getContext();
     }
 
     public void onBind(Data data){
@@ -55,6 +60,14 @@ public class ViewHolderPage extends RecyclerView.ViewHolder {
             title.setText(data.getTitle());
             image.setImageBitmap(bm);
             image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, DetailsActivity.class);
+                    intent.putExtra("place_name", data.getTitle());
+                    context.startActivity(intent);
+                }
+            });
         }catch(InterruptedException e) {
             e.printStackTrace();
         }
