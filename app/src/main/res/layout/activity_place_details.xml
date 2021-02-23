@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:layout_margin="5dp"
                 android:textSize="20dp"
                 android:textStyle="bold"
@@ -68,7 +68,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -80,14 +84,11 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp">
+                            android:orientation="vertical">
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp">
                                 <androidx.viewpager2.widget.ViewPager2
                                     android:id="@+id/view_pager"
                                     android:layout_width="match_parent"
@@ -98,7 +99,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
-                                android:layout_margin="5dp">
+                                android:layout_marginBottom="10dp">
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -106,19 +107,26 @@
                                     android:textSize="18dp"
                                     android:id="@+id/card_view_tag_text"/>
                             </LinearLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="2px"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="@color/white"/>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/black"
+                                android:textColor="@color/white"
                                 android:textSize="18dp"
                                 android:textStyle="bold"
-                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="5dp"
                                 android:text="@string/information"/>
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
-                                android:layout_margin="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
                                 android:background="@color/gray">
                                     <LinearLayout
                                         android:layout_width="match_parent"
@@ -183,11 +191,8 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="150dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginLeft="10dp">
+                                android:layout_marginBottom="10dp">
                                 <fragment
-                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:id="@+id/map_fragment"
@@ -196,55 +201,62 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/white"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="10dp">
+                    android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="18dp"
                             android:textStyle="bold"
-                            android:text="자세하게"
-                            android:layout_marginBottom="5dp"/>
+                            android:text="@string/detail_information"
+                            android:layout_marginBottom="10dp"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
+                            android:textColor="@color/white"
                             android:textSize="15dp"
                             android:id="@+id/card_view_sum_text"/>
                     </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2px"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/white"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="18dp"
                             android:textStyle="bold"
-                            android:text="더 자세하게"
-                            android:layout_marginBottom="5dp"/>
+                            android:text="@string/more_detail_information"
+                            android:layout_marginBottom="10dp"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
                             android:textSize="15dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:id="@+id/card_view_details_text"/>
                     </LinearLayout>
                 </LinearLayout>

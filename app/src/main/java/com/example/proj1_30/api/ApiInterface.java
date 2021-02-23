@@ -5,8 +5,12 @@ import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 
+import java.util.HashMap;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.GET;
@@ -24,7 +28,7 @@ public interface ApiInterface {
     * }
     * 의 JsonObject로 POST 요청을 보냄
     * */
-    @Headers({"Content-Type:application/x-www-form-urlencoded"})
+    @FormUrlEncoded
     @POST("api/v1/place")
-    Call<Place> getPlaceByName(@Body JsonObject object);
+    Call<Place> getPlaceByName(@FieldMap HashMap<String, Object> object);
 }

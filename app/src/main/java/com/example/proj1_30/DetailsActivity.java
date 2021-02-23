@@ -27,6 +27,7 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,24 +74,23 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         OnMapReadyCallback callback = this;
 
         // Retrofit 객체 생성
-        // (아직 서버 문제 해결을 못해서 baseUrl에 올바른 url이 들어가있지 않음)
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://3.36.6.110:80/") // 서버 에러 고치면 url 넣는 곳.
+                .baseUrl("http://ec2-3-35-210-105.ap-northeast-2.compute.amazonaws.com:80/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         // retrofit 객체 생성 후 call 객체로 동기 통신
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
 
-        // Post 요청을 위한 Body 생성
-        JsonObject input = new JsonObject();
-        input.addProperty("name", place_name);
+        HashMap<String, Object> input = new HashMap<>();
+        input.put("name", place_name);
 
         // /api/v1/place로 응답 요청 (비동기)
         apiInterface.getPlaceByName(input).enqueue(new Callback<Place>() {
             @Override
             public void onResponse(Call<Place> call, Response<Place> response) {
                 if (response.isSuccessful()) {
+                    Log.d("Details response", "hello");
                     Place place = response.body();
 
                     ArrayList<Picture> list = new ArrayList<>();

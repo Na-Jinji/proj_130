@@ -4,4 +4,6 @@
     <string name="places">Places</string>
     <string name="Kakao_app_key">8fd4c4c35a90b005c51e1c8350bde3ed</string>
     <string name="information">기본정보</string>
+    <string name="detail_information">자세하게</string>
+    <string name="more_detail_information">더 자세하게</string>
 </resources>

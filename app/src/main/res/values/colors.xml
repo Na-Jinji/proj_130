@@ -8,4 +8,5 @@
     <color name="tag_blue">#2187FE</color>
     <color name="gray">#F3F6FA</color>
     <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
 </resources>
