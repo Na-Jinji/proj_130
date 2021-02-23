@@ -11,8 +11,14 @@ public class Picture {
     @SerializedName("place_id")
     private Long place_id;
 
+    public Long getId(){
+        return id;
+    }
     public String getUrl(){
         return url;
+    }
+    public Long getPlace_id() {
+        return place_id;
     }
 
     public String toString() {

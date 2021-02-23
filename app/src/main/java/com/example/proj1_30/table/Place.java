@@ -20,6 +20,10 @@ public class Place {
     private String sum;
     @SerializedName("details")
     private String details;
+    @SerializedName("latitude")
+    private Double latitude;
+    @SerializedName("longitude")
+    private Double longitude;
     @SerializedName("picture")
     private List<Picture> picture;
 
@@ -55,6 +59,10 @@ public class Place {
         return details;
     }
 
+    public Double getLatitude() { return latitude; }
+
+    public Double getLongitude() { return longitude; }
+
     public List<Picture> getPicture() {
         return picture;
     }
@@ -68,6 +76,8 @@ public class Place {
                 " url= " + url +
                 " sum= " + sum +
                 " details= " + details +
+                " latitude= " + String.valueOf(latitude) +
+                " longitude= " + String.valueOf(longitude) +
                 " pictures= " + picture.toString();
     }
 }

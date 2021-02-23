@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.ImageView;
@@ -58,7 +59,6 @@ public class DetailsViewHolderPage extends RecyclerView.ViewHolder {
         try{
             mThread.join();
             image.setImageBitmap(bm);
-            image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         } catch(InterruptedException e){
             e.printStackTrace();
         }
