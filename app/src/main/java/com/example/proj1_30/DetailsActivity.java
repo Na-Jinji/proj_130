@@ -8,7 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,6 +42,10 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
     String place_name;
     ViewPager2 viewPager2;
 
+    ImageView card_view_user_icon;
+    ImageView card_view_heart_icon;
+    ImageView card_view_kakao_icon;
+
     TextView site_name_text;
     TextView card_view_address_text;
     TextView card_view_tag_text;
@@ -61,6 +68,10 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         // ViewPagerAdapter로부터 넘어오는 intent 처리
         Intent intent = getIntent();
         place_name = intent.getExtras().getString("place_name");
+
+        card_view_user_icon = (ImageView) findViewById(R.id.card_view_user_icon);
+        card_view_heart_icon = (ImageView) findViewById(R.id.card_view_heart_icon);
+        card_view_kakao_icon = (ImageView) findViewById(R.id.card_view_kakao_icon);
 
         site_name_text = (TextView) findViewById(R.id.site_name);
         card_view_address_text = (TextView) findViewById(R.id.card_view_address_text);
@@ -129,6 +140,15 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                 Log.d("DetailsActivity", t.toString());
             }
         });
+
+        card_view_heart_icon.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                // 북마크 추가 기능
+                Toast.makeText(getApplicationContext(), "북마크 등록되었습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     // 마커 생성 부분
