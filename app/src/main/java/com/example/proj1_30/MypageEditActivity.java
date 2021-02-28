@@ -5,17 +5,22 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MypageEditActivity extends AppCompatActivity {
     private ImageView imgMyPageEdit;
-    private EditText editUserName, editUserEmail, editUserAge, editUserDwelling;
+    private EditText editUserName, editUserEmail, editUserAge;
     private RadioGroup rGroupUserSex;
+    private RadioButton rdoMale, rdoFemale;
     private String strSex = "";
+    private String strDwellings = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +35,8 @@ public class MypageEditActivity extends AppCompatActivity {
         editUserName = (EditText)findViewById(R.id.editUserName);
         editUserEmail = (EditText)findViewById(R.id.editUserEmail);
         editUserAge = (EditText)findViewById(R.id.editUserAge);
-        editUserDwelling = (EditText)findViewById(R.id.editUserDwelling);
+        rdoFemale = (RadioButton)findViewById(R.id.rdoFemale);
+        rdoMale = (RadioButton)findViewById(R.id.rdoMale);
 
         rGroupUserSex = (RadioGroup)findViewById(R.id.rGroupUserSex);
         rGroupUserSex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -40,6 +46,32 @@ public class MypageEditActivity extends AppCompatActivity {
                     strSex = "여자";
                 else
                     strSex = "남자";
+            }
+        });
+
+        // 사용자 프로필 초기화
+        Intent intent = getIntent();
+        editUserName.setText(intent.getExtras().getString("userName"));
+        editUserEmail.setText(intent.getExtras().getString("userEmail"));
+        //editUserDwelling.setText(intent.getExtras().getString("userDwellings"));
+        editUserAge.setText(Integer.toString(intent.getIntExtra("userAge", 0)));
+
+        strSex = intent.getExtras().getString("userSex");
+        if(strSex.equals("여자"))
+            rdoFemale.setChecked(true);
+        else
+            rdoMale.setChecked(true);
+
+        // 스피너 어댑터
+        Spinner s = (Spinner)findViewById(R.id.spinner);
+        s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                strDwellings = (String) adapterView.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
     }
@@ -52,7 +84,7 @@ public class MypageEditActivity extends AppCompatActivity {
             case R.id.doneMyPageEdit: // 완료
                 String userName = editUserName.getText().toString();
                 String userEmail = editUserEmail.getText().toString();
-                String userDwellings = editUserDwelling.getText().toString();
+                String userDwellings = strDwellings;
                 int userAge = Integer.parseInt(editUserAge.getText().toString());
 
                 Intent intent = new Intent();

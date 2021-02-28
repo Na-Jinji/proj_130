@@ -7,19 +7,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="title">
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">25dp</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
     <style name="places">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:textColor">#FFFFFF</item>
+        <item name="fontFamily">@font/lottehappymedium</item>
     </style>
     <style name="recommendations">
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">17dp</item>
         <item name="android:textColor">#FFFFFF</item>
+        <item name="fontFamily">@font/lottehappymedium</item>
     </style>
     <style name="MyPageTxt">
         <item name="android:textSize">15dp</item>
         <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/lottehappymedium</item>
     </style>
 </resources>

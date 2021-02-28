@@ -23,6 +23,7 @@
             android:text="취소"
             android:gravity="center"
             android:textColor="#FFFFFF"
+            android:fontFamily="@font/lottehappymedium"
             android:onClick="onClick"/>
         <TextView
             android:layout_width="0dp"
@@ -30,9 +31,9 @@
             android:layout_weight="4"
             android:textSize="20dp"
             android:text="프로필 편집"
-            android:textStyle="bold"
             android:gravity="center"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/lottehappybold"/>
         <TextView
             android:id="@+id/doneMyPageEdit"
             android:layout_width="0dp"
@@ -41,6 +42,7 @@
             android:textSize="17dp"
             android:text="완료"
             android:gravity="center"
+            android:fontFamily="@font/lottehappymedium"
             android:textColor="#3897F0"
             android:onClick="onClick"/>
     </LinearLayout>
@@ -77,6 +79,7 @@
             android:text="설지우"
             android:textSize="15dp"
             android:textColor="#FFFFFF"
+            android:fontFamily="@font/lottehappylight"
             android:inputType="text"/>
     </LinearLayout>
     <LinearLayout
@@ -101,6 +104,7 @@
             android:text="jeewoo25@naver.com"
             android:textSize="15dp"
             android:textColor="#FFFFFF"
+            android:fontFamily="@font/lottehappylight"
             android:inputType="textEmailAddress"/>
     </LinearLayout>
     <LinearLayout
@@ -129,11 +133,13 @@
                 android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/lottehappylight"
                 android:layout_marginRight="13dp"/>
             <RadioButton
                 android:id="@+id/rdoFemale"
                 android:text="여자"
                 android:textColor="@color/white"
+                android:fontFamily="@font/lottehappylight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </RadioGroup>
@@ -162,6 +168,7 @@
             android:textSize="16dp"
             android:textColor="#FFFFFF"
             android:inputType="number"
+            android:fontFamily="@font/lottehappylight"
             android:gravity="center"/>
         <TextView
             android:layout_width="0dp"
@@ -184,16 +191,21 @@
             android:text="거주지"
             android:textAppearance="@style/MyPageTxt"
             android:gravity="center"/>
-        <EditText
-            android:id="@+id/editUserDwelling"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_height="match_parent"
-            android:hint="미정"
-            android:textColorHint="@color/white"
-            android:textSize="15dp"
-            android:textColor="#FFFFFF"
-            android:inputType="text"/>
+            android:gravity="center|left">
+            <Spinner
+                android:id="@+id/spinner"
+                android:entries="@array/korea_province"
+                android:spinnerMode="dialog"
+                android:background="@color/white"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit6"
+                android:fontFamily="@font/lottehappylight"/>
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

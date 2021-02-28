@@ -17,6 +17,7 @@
         android:gravity="top"
         android:lineSpacingExtra="0sp"
         android:text="@string/title"
+        android:fontFamily="@font/lottehappybold"
         android:textAppearance="@style/title" />
 
     <RelativeLayout
@@ -55,12 +56,11 @@
             android:singleLine="true"
             android:maxLines="1"
             android:inputType="text"
-            android:typeface="serif"
+            android:fontFamily="@font/lottehappylight"
             android:hint="Search for Recommendations"
             android:textColor="#FFFFFF"
             android:background="@android:color/transparent"/>
     </RelativeLayout>
-
 
     <TextView
         android:id="@+id/txtPlaces"
@@ -68,13 +68,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/search_box_"
         android:layout_marginTop="50dp"
-        android:layout_marginLeft="40dp"
+        android:layout_centerHorizontal="true"
         android:textAppearance="@style/places"
         android:lineSpacingExtra="3sp"/>
     <ImageView
         android:id="@+id/imgPlaces"
         android:visibility="invisible"
-        android:layout_width="314dp"
+        android:layout_width="355dp"
         android:layout_height="200dp"
         android:layout_below="@id/txtPlaces"
         android:background="@drawable/show_result"

@@ -16,7 +16,7 @@
         android:textColor="@color/white"
         android:textSize="20dp"
         android:text="저장한 콘텐츠"
-        android:textStyle="bold"
+        android:fontFamily="@font/lottehappybold"
         android:gravity="center"/>
 
 </RelativeLayout>

@@ -54,6 +54,14 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        // 사용자 프로필 - 서버 DB에서 읽어오기
+        // 사용자 프로필 설정 - 임시
+        userName = "설지우";
+        userEmail = "jeewoo1025@gmail.com";
+        userSex = "여자";
+        userAge = 25;
+        userDwellings = "서울시 동대문구";
     }
 
     @Override
@@ -76,10 +84,19 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
 
         // Textview
         txtMypageName = (TextView)view.findViewById(R.id.txtMypageName);
+        txtMypageName.setText(userName + " 님");
+
         txtMypageSex = (TextView)view.findViewById(R.id.txtMypageSex);
+        txtMypageSex.setText(userSex);
+
         txtMypageAge = (TextView)view.findViewById(R.id.txtMypageAge);
+        txtMypageAge.setText(userAge.toString() + " 세");
+
         txtMypageDwellings = (TextView)view.findViewById(R.id.txtMypageDwellings);
+        txtMypageDwellings.setText(userDwellings);
+
         txtmypageEmail = (TextView)view.findViewById(R.id.txtmypageEmail);
+        txtmypageEmail.setText(userEmail);
     }
 
     @Override
@@ -88,6 +105,11 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
             case R.id.layoutMyPageEdit:
                 // MypageEditActivity 호출
                 Intent intent = new Intent(getActivity(), MypageEditActivity.class);
+                intent.putExtra("userName", userName);
+                intent.putExtra("userEmail", userEmail);
+                intent.putExtra("userAge", userAge);
+                intent.putExtra("userSex", userSex);
+                intent.putExtra("userDwellings", userDwellings);
                 startActivityForResult(intent, REQUEST_MYPAGE_EDIT);
                 break;
         }
