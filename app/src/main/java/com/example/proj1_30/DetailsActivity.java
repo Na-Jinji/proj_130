@@ -41,6 +41,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
+    Place place;
     String place_name;
     ViewPager2 viewPager2;
 
@@ -103,7 +104,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
             public void onResponse(Call<Place> call, Response<Place> response) {
                 if (response.isSuccessful()) {
                     Log.d("Details response", "hello");
-                    Place place = response.body();
+                    place = response.body();
 
                     ArrayList<Picture> list = new ArrayList<>();
                     list.add(place.getPicture().get(0));
@@ -148,7 +149,30 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                 // 북마크 추가 기능
                 card_view_heart_icon.setColorFilter(Color.parseColor("#FFD72626"));
                 Toast.makeText(getApplicationContext(), "북마크 등록되었습니다.", Toast.LENGTH_SHORT).show();
-
+            }
+        });
+        card_view_address_text.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + latitude+","+longitude+"?q="+place.getName()));
+                intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+        card_view_phone_text.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:"+place.getPhone()));
+                startActivity(intent);
+            }
+        });
+        card_view_url_text.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(place.getUrl()));
+                intent.setPackage("com.android.chrome");
+                startActivity(intent);
             }
         });
 
