@@ -1,31 +1,29 @@
-package com.example.proj1_30;
+package com.example.proj1_30.fragmentclass;
 
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.proj1_30.Data;
+import com.example.proj1_30.R;
+import com.example.proj1_30.RetrofitAPI;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,28 +35,45 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static java.lang.Thread.sleep;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeFragment extends Fragment implements View.OnClickListener {
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    private String mParam1;
+    private String mParam2;
+
+    // layout
+    public static final int MAX = 5;
+    private TextView[] txtPlaces = new TextView[MAX];
     private ImageView search_icon, imgPlaces;
     private EditText editSearch;
     private TextView txtSubTitle;
 
-    private RelativeLayout layout;
     private Retrofit flask;
     private RetrofitAPI flaskAPI;
-    ViewPager2 viewPager2;
-    List<String> recommend_list;
-
-    private TextView[] txtPlaces = new TextView[MAX];
+    private ViewPager2 viewPager2;
+    private List<String> recommend_list;
     private List<String> titleList;
 
-    public static final int MAX = 5;
+    public HomeFragment() {
+    }
+
+    public static HomeFragment newInstance(String param1, String param2) {
+        HomeFragment fragment = new HomeFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        Toast.makeText(MainActivity.this, ((GlobalApplication)MainActivity.this.getApplication()).getEmail(), Toast.LENGTH_LONG).show();
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
 
         // Springboot RestAPI
         Retrofit retrofit = new Retrofit.Builder()
@@ -89,26 +104,63 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         flaskAPI = flask.create(RetrofitAPI.class);
+    }
 
-        // View id
-        layout = (RelativeLayout)findViewById(R.id.main_layout);
-        search_icon = (ImageView)findViewById(R.id.search_icon);
-        editSearch = (EditText)findViewById(R.id.editSearch);
-        txtSubTitle = (TextView)findViewById(R.id.txtPlaces);
-        imgPlaces = (ImageView)findViewById(R.id.imgPlaces);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // 텍스트뷰 추가
-        txtPlaces[0] = (TextView)findViewById(R.id.place0);
-        txtPlaces[1] = (TextView)findViewById(R.id.place1);
-        txtPlaces[2] = (TextView)findViewById(R.id.place2);
-        txtPlaces[3] = (TextView)findViewById(R.id.place3);
-        txtPlaces[4] = (TextView)findViewById(R.id.place4);
-        viewPager2 = findViewById(R.id.view_pager2);
+        // 기타 view
+        txtSubTitle = (TextView)root.findViewById(R.id.txtPlaces);
+        imgPlaces = (ImageView)root.findViewById(R.id.imgPlaces);
+
+        // TextView 추가
+        txtPlaces[0] = (TextView)root.findViewById(R.id.place0);
+        txtPlaces[1] = (TextView)root.findViewById(R.id.place1);
+        txtPlaces[2] = (TextView)root.findViewById(R.id.place2);
+        txtPlaces[3] = (TextView)root.findViewById(R.id.place3);
+        txtPlaces[4] = (TextView)root.findViewById(R.id.place4);
+
+        for(int i = 0; i < MAX; i++)
+            txtPlaces[i].setOnClickListener(this);
+
+        // 검색 아이콘
+        search_icon = (ImageView)root.findViewById(R.id.search_icon);
+        search_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPlace();
+            }
+        });
+
+        // 검색창 EditText
+        editSearch = (EditText)root.findViewById(R.id.editSearch);
+        editSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(i == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == keyEvent.ACTION_UP) { // 엔터키
+                    checkPlace();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         // 추천지 5군데 페이지 설정
         int dpValue = 54;
         float d = getResources().getDisplayMetrics().density;
         int margin = (int) (dpValue * d);
+
+        viewPager2 = view.findViewById(R.id.view_pager2);
+
         viewPager2.setPadding(margin, 0, margin, 0);
         viewPager2.setOffscreenPageLimit(3);
         viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
@@ -123,27 +175,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         viewPager2.setPageTransformer(compositePageTransformer);
+    }
 
-        // 검색 아이콘
-        search_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkPlace();
-            }
-        });
+    @Override
+    public void onClick(View view) {
+        TextView tmp = (TextView)view;
+        String value = tmp.getText().toString();
+        if(value.equals("") || value.length() <= 0)
+            return;
 
-        // 검색창 EditText
-        editSearch.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                if(i == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == keyEvent.ACTION_UP) { // 엔터키
-                    checkPlace();
-                    return true;
-                }
-
-                return false;
-            }
-        });
+        setPlacesVisible(false, null, "Recommendations");
+        editSearch.setText(value);
+        viewPager2.setVisibility(View.VISIBLE);
+        setRecommend_list(value);
     }
 
     // 검색어 확인
@@ -168,10 +212,10 @@ public class MainActivity extends AppCompatActivity {
         setPlacesVisible(true, similarPlaces, "Places");
     }
 
+
     // 비슷한 관광지 받아오기
     public ArrayList<String> getSimilarPlaces(String place) {
         ArrayList<String> value = new ArrayList<>();
-
         for(String name : titleList) {
             if(name.contains(place))
                 value.add(name);
@@ -187,10 +231,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         txtSubTitle.setText(subTitle);
-
         imgPlaces.setVisibility(visibility);
 
-        // Log.d("AAAA","setPlaces");
         for(int i = 0; i < txtPlaces.length; i++) {
             txtPlaces[i].setVisibility(visibility);
 
@@ -198,23 +240,6 @@ public class MainActivity extends AppCompatActivity {
             if(places != null && i < places.size())
                 txtPlaces[i].setText(places.get(i));
         }
-    }
-
-    // 비슷한 관광지 Click시 이벤트 처리
-    public void onClick(View view) {
-        TextView tmp = (TextView)view;
-        String value = tmp.getText().toString();
-        if(value.equals("") || value.length() <= 0)
-            return;
-
-        Log.d("AAAA", "value : " + value);
-        setPlacesVisible(false, null, "Recommendations");
-
-        editSearch.setText(value);
-
-        Log.d("AAAA", "onClick...");
-        viewPager2.setVisibility(View.VISIBLE);
-        setRecommend_list(value);
     }
 
     // Flask API에서 추천 관광지 받아오기
@@ -270,9 +295,5 @@ public class MainActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
-
-
     }
-
-
 }

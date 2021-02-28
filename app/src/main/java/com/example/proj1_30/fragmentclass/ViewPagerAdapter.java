@@ -1,24 +1,25 @@
-package com.example.proj1_30;
+package com.example.proj1_30.fragmentclass;
 
-import android.content.Context;
-import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.proj1_30.Data;
+import com.example.proj1_30.R;
 
 import java.util.ArrayList;
 
 public class ViewPagerAdapter extends RecyclerView.Adapter<ViewHolderPage> {
     private ArrayList<Data> listData;
 
-    ViewPagerAdapter(ArrayList<Data> data){
+    public ViewPagerAdapter(ArrayList<Data> data){
         this.listData = data;
     }
 
     @Override
-    public ViewHolderPage onCreateViewHolder(ViewGroup parent,int viewType){
+    public ViewHolderPage onCreateViewHolder(ViewGroup parent, int viewType){
         /*Context context = parent.getContext();
         View view = LayoutInflater.from(context).inflate(R.layout.item_viewpager, parent, false);
         return new ViewHolderPage(view);*/
@@ -37,6 +38,7 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewHolderPage> {
 
     @Override
     public int getItemCount(){
+        Log.d("AAAA", String.valueOf(listData.size()));
         return listData.size();
     }
 }

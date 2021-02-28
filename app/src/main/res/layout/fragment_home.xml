@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:outlineProvider="background"
-    android:background="@drawable/discover_sc">
+    android:background="#2E2E2E"
+    tools:context=".fragmentclass.HomeFragment">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="41dp"
@@ -31,7 +28,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="100dp">
-        
+
         <ImageView
             android:id="@+id/search_box"
             android:layout_width="350dp"
@@ -82,19 +79,16 @@
         android:layout_below="@id/txtPlaces"
         android:background="@drawable/show_result"
         android:layout_marginTop="10dp"
-        android:layout_alignLeft="@id/txtPlaces"/>
-
+        android:layout_centerHorizontal="true"/>
     <LinearLayout
         android:id="@+id/layoutPlaces"
-        android:layout_width="314dp"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
         android:orientation="vertical"
         android:layout_below="@id/txtPlaces"
         android:layout_marginTop="10dp"
-        android:layout_alignLeft="@id/txtPlaces"
         android:gravity="center"
         android:padding="20dp">
-
         <TextView
             android:id="@+id/place0"
             android:layout_width="wrap_content"
@@ -134,7 +128,6 @@
             android:textAppearance="@style/recommendations"
             android:visibility="gone"
             android:onClick="onClick"/>
-
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -152,5 +145,5 @@
             android:clipChildren="false"
             android:visibility="invisible"/>
     </LinearLayout>
-    
+
 </RelativeLayout>

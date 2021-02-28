@@ -1,16 +1,19 @@
-package com.example.proj1_30;
+package com.example.proj1_30.fragmentclass;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.ImageView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.proj1_30.Data;
+import com.example.proj1_30.DetailsActivity;
+import com.example.proj1_30.R;
 
 import java.io.BufferedInputStream;
 import java.net.URL;
