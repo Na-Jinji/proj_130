@@ -27,7 +27,7 @@
                 android:textColor="@color/white"
                 android:layout_margin="5dp"
                 android:textSize="20dp"
-                android:textStyle="bold"
+                android:fontFamily="@font/lottehappybold"
                 android:id="@+id/site_name"/>
         </LinearLayout>
         <LinearLayout
@@ -107,6 +107,7 @@
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/tag_blue"
                                     android:textSize="18dp"
+                                    android:fontFamily="@font/lottehappylight"
                                     android:id="@+id/card_view_tag_text"/>
                             </LinearLayout>
                             <View
@@ -122,7 +123,8 @@
                                 android:textSize="18dp"
                                 android:textStyle="bold"
                                 android:layout_marginTop="5dp"
-                                android:text="@string/information"/>
+                                android:text="@string/information"
+                                android:fontFamily="@font/lottehappymedium"/>
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -150,6 +152,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:textColor="@color/black"
                                                 android:textSize="15dp"
+                                                android:fontFamily="@font/lottehappylight"
                                                 android:id="@+id/card_view_address_text"/>
                                         </LinearLayout>
                                         <LinearLayout
@@ -168,6 +171,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:textColor="@color/black"
                                                 android:textSize="15dp"
+                                                android:fontFamily="@font/lottehappylight"
                                                 android:id="@+id/card_view_phone_text"/>
                                         </LinearLayout>
                                         <LinearLayout
@@ -186,6 +190,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:textColor="@color/black"
                                                 android:textSize="15dp"
+                                                android:fontFamily="@font/lottehappylight"
                                                 android:id="@+id/card_view_url_text"/>
                                         </LinearLayout>
                                     </LinearLayout>
@@ -226,12 +231,14 @@
                             android:textSize="18dp"
                             android:textStyle="bold"
                             android:text="@string/detail_information"
+                            android:fontFamily="@font/lottehappymedium"
                             android:layout_marginBottom="10dp"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
                             android:textSize="15dp"
+                            android:fontFamily="@font/lottehappylight"
                             android:id="@+id/card_view_sum_text"/>
                     </LinearLayout>
                     <View
@@ -253,12 +260,14 @@
                             android:textSize="18dp"
                             android:textStyle="bold"
                             android:text="@string/more_detail_information"
+                            android:fontFamily="@font/lottehappymedium"
                             android:layout_marginBottom="10dp"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="15dp"
                             android:textColor="@color/white"
+                            android:fontFamily="@font/lottehappylight"
                             android:id="@+id/card_view_details_text"/>
                     </LinearLayout>
                 </LinearLayout>
