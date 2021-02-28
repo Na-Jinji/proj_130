@@ -32,8 +32,9 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
     private LinearLayout layoutMyPageEdit;
     private TextView txtMypageName, txtMypageSex, txtMypageAge, txtMypageDwellings, txtmypageEmail;
 
-    private String userName, userEmail, userSex, userDwellings;
-    private Integer userAge;
+    private String userName, userEmail, userSex;
+    private Integer userAge, userDwellings;
+    private String[] koreaProvince;
 
     public MypageFragment() {
     }
@@ -55,13 +56,15 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        koreaProvince = getResources().getStringArray(R.array.korea_province);
+
         // 사용자 프로필 - 서버 DB에서 읽어오기
         // 사용자 프로필 설정 - 임시
         userName = "설지우";
         userEmail = "jeewoo1025@gmail.com";
         userSex = "여자";
         userAge = 25;
-        userDwellings = "서울시 동대문구";
+        userDwellings = 2;
     }
 
     @Override
@@ -93,7 +96,7 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
         txtMypageAge.setText(userAge.toString() + " 세");
 
         txtMypageDwellings = (TextView)view.findViewById(R.id.txtMypageDwellings);
-        txtMypageDwellings.setText(userDwellings);
+        txtMypageDwellings.setText(koreaProvince[userDwellings]);
 
         txtmypageEmail = (TextView)view.findViewById(R.id.txtmypageEmail);
         txtmypageEmail.setText(userEmail);
@@ -136,8 +139,8 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
             userSex = data.getExtras().getString("userSex");
             txtMypageSex.setText(userSex);
 
-            userDwellings = data.getExtras().getString("userDwellings");
-            txtMypageDwellings.setText(userDwellings);
+            userDwellings = data.getExtras().getInt("userDwellings");
+            txtMypageDwellings.setText(koreaProvince[userDwellings]);
         }
     }
 }
