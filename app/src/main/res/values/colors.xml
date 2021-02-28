@@ -3,9 +3,8 @@
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FFFFFF</color>
-    <color name="information">#FFFFFF</color>
-    <color name="phone_and_homepage">#FFFFFF</color>
-    <color name="tag_blue">#FFFFFF</color>
+    <color name="tag_blue">#2187F2</color>
+    <color name="background">#2E2E2E</color>
     <color name="gray">#F3F6FA</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

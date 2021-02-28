@@ -11,12 +11,14 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MypageEditActivity extends AppCompatActivity {
     private ImageView imgMyPageEdit;
-    private EditText editUserName, editUserEmail, editUserAge;
+    private TextView txtUserName, txtUserEmail;
+    private EditText editUserAge;
     private RadioGroup rGroupUserSex;
     private RadioButton rdoMale, rdoFemale;
     private String strSex = "";
@@ -32,8 +34,8 @@ public class MypageEditActivity extends AppCompatActivity {
         imgMyPageEdit.setBackground(new ShapeDrawable(new RoundRectShape(new float[] {100, 100, 100, 100, 100, 100, 100, 100}, null, new float[] {100, 100, 100, 100, 100, 100, 100, 100})));
         imgMyPageEdit.setClipToOutline(true);
 
-        editUserName = (EditText)findViewById(R.id.editUserName);
-        editUserEmail = (EditText)findViewById(R.id.editUserEmail);
+        txtUserName = (TextView)findViewById(R.id.txtUserName);
+        txtUserEmail = (TextView) findViewById(R.id.txtUserEmail);
         editUserAge = (EditText)findViewById(R.id.editUserAge);
         rdoFemale = (RadioButton)findViewById(R.id.rdoFemale);
         rdoMale = (RadioButton)findViewById(R.id.rdoMale);
@@ -51,8 +53,8 @@ public class MypageEditActivity extends AppCompatActivity {
 
         // 사용자 프로필 초기화
         Intent intent = getIntent();
-        editUserName.setText(intent.getExtras().getString("userName"));
-        editUserEmail.setText(intent.getExtras().getString("userEmail"));
+        txtUserName.setText(intent.getExtras().getString("userName"));
+        txtUserEmail.setText(intent.getExtras().getString("userEmail"));
         editUserAge.setText(Integer.toString(intent.getIntExtra("userAge", 0)));
 
         strSex = intent.getExtras().getString("userSex");
@@ -84,14 +86,10 @@ public class MypageEditActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.doneMyPageEdit: // 완료
-                String userName = editUserName.getText().toString();
-                String userEmail = editUserEmail.getText().toString();
                 Integer userDwellings = intDwellings;
                 int userAge = Integer.parseInt(editUserAge.getText().toString());
 
                 Intent intent = new Intent();
-                intent.putExtra("userName", userName);
-                intent.putExtra("userEmail", userEmail);
                 intent.putExtra("userAge", userAge);
                 intent.putExtra("userDwellings", userDwellings);
                 intent.putExtra("userSex", strSex);

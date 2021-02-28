@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".LoginActivity"
-    android:background="@drawable/discover_sc">
+    android:background="@color/background">
 
     <Button
         android:id="@+id/btn_kakao_login"

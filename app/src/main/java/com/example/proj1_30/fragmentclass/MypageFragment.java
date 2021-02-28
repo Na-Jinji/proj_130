@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,13 +124,6 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
         if(requestCode == REQUEST_MYPAGE_EDIT) {
             if(resultCode != Activity.RESULT_OK)
                 return;
-
-            Log.d("AAAA", "ok");
-            userName = data.getExtras().getString("userName");
-            txtMypageName.setText(userName + " 님");
-
-            userEmail = data.getExtras().getString("userEmail");
-            txtmypageEmail.setText(userEmail);
 
             userAge = data.getExtras().getInt("userAge");
             txtMypageAge.setText(userAge.toString() + " 세");
