@@ -22,6 +22,9 @@ public interface RetrofitAPI {
 
     @GET("/test/url/{title}")
     Call<String> getUrl();
+
+    
+
 }
 
 
