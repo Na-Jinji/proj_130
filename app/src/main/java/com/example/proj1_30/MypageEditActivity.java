@@ -20,7 +20,7 @@ public class MypageEditActivity extends AppCompatActivity {
     private RadioGroup rGroupUserSex;
     private RadioButton rdoMale, rdoFemale;
     private String strSex = "";
-    private String strDwellings = "";
+    private Integer intDwellings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,6 @@ public class MypageEditActivity extends AppCompatActivity {
         Intent intent = getIntent();
         editUserName.setText(intent.getExtras().getString("userName"));
         editUserEmail.setText(intent.getExtras().getString("userEmail"));
-        //editUserDwelling.setText(intent.getExtras().getString("userDwellings"));
         editUserAge.setText(Integer.toString(intent.getIntExtra("userAge", 0)));
 
         strSex = intent.getExtras().getString("userSex");
@@ -62,18 +61,21 @@ public class MypageEditActivity extends AppCompatActivity {
         else
             rdoMale.setChecked(true);
 
+        intDwellings = intent.getExtras().getInt("userDwellings");
+
         // 스피너 어댑터
         Spinner s = (Spinner)findViewById(R.id.spinner);
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                strDwellings = (String) adapterView.getItemAtPosition(position);
+                intDwellings = position;
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+        s.setSelection(intDwellings);
     }
 
     public void onClick(View view) {
@@ -84,7 +86,7 @@ public class MypageEditActivity extends AppCompatActivity {
             case R.id.doneMyPageEdit: // 완료
                 String userName = editUserName.getText().toString();
                 String userEmail = editUserEmail.getText().toString();
-                String userDwellings = strDwellings;
+                Integer userDwellings = intDwellings;
                 int userAge = Integer.parseInt(editUserAge.getText().toString());
 
                 Intent intent = new Intent();
