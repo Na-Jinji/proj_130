@@ -5,6 +5,8 @@ import com.example.proj1_30.table.Picture;
 import com.example.proj1_30.table.Place;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -83,7 +85,6 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
         // NaverMapCallback OnMapReadyCallback
         OnMapReadyCallback callback = this;
-
         // Retrofit 객체 생성
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://ec2-3-35-210-105.ap-northeast-2.compute.amazonaws.com:80/")
@@ -145,6 +146,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onClick(View view) {
                 // 북마크 추가 기능
+                card_view_heart_icon.setColorFilter(Color.parseColor("#FFD72626"));
                 Toast.makeText(getApplicationContext(), "북마크 등록되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -174,7 +176,10 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         marker.setOnClickListener(new Overlay.OnClickListener() {
             @Override
             public boolean onClick(@NonNull Overlay overlay) {
-                Log.d("maker", "click");
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + latitude+","+longitude+"?q="+place_name));
+                intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 return false;
             }
         });
