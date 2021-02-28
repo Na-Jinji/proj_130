@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/background"
     android:padding="10dp"
     tools:context=".MypageEditActivity">
 
@@ -71,16 +71,16 @@
             android:text="이름"
             android:textAppearance="@style/MyPageTxt"
             android:gravity="center"/>
-        <EditText
-            android:id="@+id/editUserName"
+        <TextView
+            android:id="@+id/txtUserName"
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_height="match_parent"
             android:text="설지우"
             android:textSize="15dp"
             android:textColor="#FFFFFF"
-            android:fontFamily="@font/lottehappylight"
-            android:inputType="text"/>
+            android:gravity="center|left"
+            android:fontFamily="@font/lottehappylight"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/edit3"
@@ -96,16 +96,16 @@
             android:text="이메일 주소"
             android:textAppearance="@style/MyPageTxt"
             android:gravity="center"/>
-        <EditText
-            android:id="@+id/editUserEmail"
+        <TextView
+            android:id="@+id/txtUserEmail"
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_height="match_parent"
             android:text="jeewoo25@naver.com"
             android:textSize="15dp"
             android:textColor="#FFFFFF"
-            android:fontFamily="@font/lottehappylight"
-            android:inputType="textEmailAddress"/>
+            android:gravity="center|left"
+            android:fontFamily="@font/lottehappylight"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/edit4"
