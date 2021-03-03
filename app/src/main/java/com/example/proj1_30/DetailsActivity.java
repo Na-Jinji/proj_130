@@ -22,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.gson.JsonObject;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.MapFragment;
@@ -57,7 +56,6 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
     TextView card_view_sum_text;
     TextView card_view_details_text;
 
-    Double latitude = 0.0, longitude = 0.0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,15 +101,12 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onResponse(Call<Place> call, Response<Place> response) {
                 if (response.isSuccessful()) {
-                    Log.d("Details response", "hello");
                     place = response.body();
 
                     ArrayList<Picture> list = new ArrayList<>();
-                    list.add(place.getPicture().get(0));
-                    list.add(place.getPicture().get(1));
-                    list.add(place.getPicture().get(2));
-                    list.add(place.getPicture().get(3));
-                    list.add(place.getPicture().get(4));
+                    for(int i = 0; i<place.getPicture().size(); i++){
+                        list.add(place.getPicture().get(i));
+                    }
 
                     viewPager2.setAdapter(new DetailsViewPagerAdapter(list));
 
@@ -122,9 +117,6 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                     card_view_url_text.setText(place.getUrl());
                     card_view_sum_text.setText(place.getSum());
                     card_view_details_text.setText(place.getDetails());
-
-                    latitude = place.getLatitude();
-                    longitude = place.getLongitude();
 
                     // NaverMap Fragment 객체 생성 후 getMapAsync 함수로 OnMapReady 함수를 호출
                     MapFragment mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
@@ -154,7 +146,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         card_view_address_text.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + latitude+","+longitude+"?q="+place.getName()));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + place.getLatitude()+","+place.getLongitude()+"?q="+place.getName()));
                 intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
@@ -185,12 +177,12 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         Marker marker = new Marker();
 
         // marker 찍는 부분
-        marker.setPosition(new LatLng(latitude, longitude));
+        marker.setPosition(new LatLng(place.getLatitude(), place.getLongitude()));
         marker.setMap(naverMap);
 
         // 지도 위치를 marker 위치로 조정하는 부분
         CameraPosition cameraPosition = new CameraPosition(
-                new LatLng(latitude, longitude),
+                new LatLng(place.getLatitude(), place.getLongitude()),
                 10,
                 0,
                 0
@@ -201,7 +193,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         marker.setOnClickListener(new Overlay.OnClickListener() {
             @Override
             public boolean onClick(@NonNull Overlay overlay) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + latitude+","+longitude+"?q="+place_name));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + place.getLatitude()+","+place.getLongitude()+"?q="+place_name));
                 intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
