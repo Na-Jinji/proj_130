@@ -15,20 +15,10 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.GET;
 
-// Details 서버 api interface
 public interface ApiInterface {
-
-    // 기능: 모든 장소를 다 불러옴
     @GET("api/v1/place")
     Call<JSONArray> getAllPlace();
 
-    /*
-    * {
-    *   "name": "불국사"
-    * }
-    * 의 JsonObject로 POST 요청을 보냄
-    * */
-    @FormUrlEncoded
     @POST("api/v1/place")
-    Call<Place> getPlaceByName(@FieldMap HashMap<String, Object> object);
+    Call<Place> getPlaceByName(@Body DetailsObject object);
 }

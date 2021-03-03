@@ -67,7 +67,7 @@ public class ViewHolderPage extends RecyclerView.ViewHolder {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, DetailsActivity.class);
-                    intent.putExtra("place_name", data.getTitle());
+                    intent.putExtra("place_name", data.getTitle().replaceAll(String.valueOf('"'), ""));
                     context.startActivity(intent);
                 }
             });

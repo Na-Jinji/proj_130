@@ -1,6 +1,8 @@
 package com.example.proj1_30;
 
+import com.example.proj1_30.api.ApiClient;
 import com.example.proj1_30.api.ApiInterface;
+import com.example.proj1_30.api.DetailsObject;
 import com.example.proj1_30.table.Picture;
 import com.example.proj1_30.table.Place;
 
@@ -69,7 +71,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         // ViewPagerAdapter로부터 넘어오는 intent 처리
         Intent intent = getIntent();
         place_name = intent.getExtras().getString("place_name");
-
+        Log.d("place_name", place_name);
         card_view_user_icon = (ImageView) findViewById(R.id.card_view_user_icon);
         card_view_heart_icon = (ImageView) findViewById(R.id.card_view_heart_icon);
         card_view_kakao_icon = (ImageView) findViewById(R.id.card_view_kakao_icon);
@@ -84,20 +86,15 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
         // NaverMapCallback OnMapReadyCallback
         OnMapReadyCallback callback = this;
-        // Retrofit 객체 생성
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://ec2-3-35-210-105.ap-northeast-2.compute.amazonaws.com:80/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
         // retrofit 객체 생성 후 call 객체로 동기 통신
-        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         HashMap<String, Object> input = new HashMap<>();
         input.put("name", place_name);
 
         // /api/v1/place로 응답 요청 (비동기)
-        apiInterface.getPlaceByName(input).enqueue(new Callback<Place>() {
+        apiInterface.getPlaceByName(new DetailsObject(place_name)).enqueue(new Callback<Place>() {
             @Override
             public void onResponse(Call<Place> call, Response<Place> response) {
                 if (response.isSuccessful()) {
@@ -193,7 +190,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         marker.setOnClickListener(new Overlay.OnClickListener() {
             @Override
             public boolean onClick(@NonNull Overlay overlay) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + place.getLatitude()+","+place.getLongitude()+"?q="+place_name));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + place.getLatitude()+","+place.getLongitude()+"?q="+place.getName()));
                 intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
