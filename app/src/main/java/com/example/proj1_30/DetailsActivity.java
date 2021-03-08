@@ -46,6 +46,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
     String place_name;
     ViewPager2 viewPager2;
 
+    ImageView card_view_arrow_back_icon;
     ImageView card_view_user_icon;
     ImageView card_view_heart_icon;
     ImageView card_view_kakao_icon;
@@ -72,6 +73,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         Intent intent = getIntent();
         place_name = intent.getExtras().getString("place_name");
         Log.d("place_name", place_name);
+        card_view_arrow_back_icon = (ImageView) findViewById(R.id.card_view_back_icon);
         card_view_user_icon = (ImageView) findViewById(R.id.card_view_user_icon);
         card_view_heart_icon = (ImageView) findViewById(R.id.card_view_heart_icon);
         card_view_kakao_icon = (ImageView) findViewById(R.id.card_view_kakao_icon);
@@ -129,6 +131,12 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onFailure(Call<Place> call, Throwable t) {
                 Log.d("DetailsActivity", t.toString());
+            }
+        });
+        card_view_arrow_back_icon.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                finish();
             }
         });
 

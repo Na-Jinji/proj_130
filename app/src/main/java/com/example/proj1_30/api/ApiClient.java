@@ -5,12 +5,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
     public static String BASE_URL = "http://54.180.225.210:80/";
-    /*
-        주소는 반드시 /로 끝나야한다.
-        예를 들어, http://com.example.com/hello" 까지 적는다면,
-        실제로 http://com.example.com/" 까지만 가져오게 되는 것이다.
-        따라서 BASE_URL인 만큼 베이스 주소만 적어두고 나머지 주소는 interface에서 써준다.
-     */
 
     private static Retrofit retrofit;
     public static Retrofit getClient() {
