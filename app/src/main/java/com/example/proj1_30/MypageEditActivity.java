@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -12,8 +13,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MypageEditActivity extends AppCompatActivity {
     private ImageView imgMyPageEdit;
@@ -23,6 +29,10 @@ public class MypageEditActivity extends AppCompatActivity {
     private RadioButton rdoMale, rdoFemale;
     private String strSex = "";
     private Integer intDwellings;
+
+    private RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
+    private GlobalApplication global = GlobalApplication.getGlobalApplicationContext();
+    private String[] koreaProvince;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +49,7 @@ public class MypageEditActivity extends AppCompatActivity {
         editUserAge = (EditText)findViewById(R.id.editUserAge);
         rdoFemale = (RadioButton)findViewById(R.id.rdoFemale);
         rdoMale = (RadioButton)findViewById(R.id.rdoMale);
+        koreaProvince = getResources().getStringArray(R.array.korea_province);
 
         rGroupUserSex = (RadioGroup)findViewById(R.id.rGroupUserSex);
         rGroupUserSex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -58,10 +69,12 @@ public class MypageEditActivity extends AppCompatActivity {
         editUserAge.setText(Integer.toString(intent.getIntExtra("userAge", 0)));
 
         strSex = intent.getExtras().getString("userSex");
-        if(strSex.equals("여자"))
-            rdoFemale.setChecked(true);
-        else
-            rdoMale.setChecked(true);
+        if(!strSex.equals("선택 안 함")) {
+            if (strSex.equals("여자"))
+                rdoFemale.setChecked(true);
+            else
+                rdoMale.setChecked(true);
+        }
 
         intDwellings = intent.getExtras().getInt("userDwellings");
 
@@ -94,6 +107,27 @@ public class MypageEditActivity extends AppCompatActivity {
                 intent.putExtra("userDwellings", userDwellings);
                 intent.putExtra("userSex", strSex);
                 setResult(RESULT_OK, intent);
+
+                // 서버 DB에 사용자 정보 변경 사항 저장
+                UserInfo info = new UserInfo(strSex, userAge, koreaProvince[userDwellings]);
+                Toast.makeText(getApplicationContext(), "프로필이 변경되었습니다.", Toast.LENGTH_SHORT).show();
+                retrofitAPI.updateUserInfo(global.getEmail(), info).enqueue(new Callback<UserInfo>() {
+                    @Override
+                    public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+                        if(response.isSuccessful()){
+                            UserInfo res = response.body();
+                            Log.d("UPDATE_USER", "성공");
+                            Log.d("UPDATE_USER", res.getSex());
+                            Log.d("UPDATE_USER", res.getResidence());
+                            Log.d("UPDATE_USER", Integer.toString(res.getAge()));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserInfo> call, Throwable t) {
+                        Log.d("UPDATE_USER", "실패");
+                    }
+                });
                 finish();
                 break;
         }

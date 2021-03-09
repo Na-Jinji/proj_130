@@ -40,7 +40,7 @@ public interface RetrofitAPI {
 
     // 사용자 정보 수정하기
     @PUT("/test/userinfo/{email}")
-    Call<UserInfo> updateUserInfo(@Path("email") String email);
+    Call<UserInfo> updateUserInfo(@Path("email") String email, @Body UserInfo userInfo);
 
     // 북마크 생성하기
     @POST("/test/bookmark")

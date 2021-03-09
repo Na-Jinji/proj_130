@@ -2,10 +2,13 @@ package com.example.proj1_30.fragmentclass;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,10 @@ import androidx.fragment.app.Fragment;
 import com.example.proj1_30.GlobalApplication;
 import com.example.proj1_30.MypageEditActivity;
 import com.example.proj1_30.R;
+
+import java.io.BufferedInputStream;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class MypageFragment extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
@@ -38,6 +45,7 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
     private String[] koreaProvince;
 
     private GlobalApplication global = GlobalApplication.getGlobalApplicationContext();
+    private Bitmap bm;
 
     public MypageFragment() {
     }
@@ -64,10 +72,18 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
         // 사용자 프로필 - 서버 DB에서 읽어오기
         userName = global.getProfile().getNickname();
         userEmail = global.getEmail();
-        userSex = global.getSex();
+        if(global.getSex() == null)
+            userSex = "선택 안 함";
         userAge = global.getAge();
-        // 거주지 추후 수정
-        userDwellings = 2;
+
+        if(global.getResidence() == null)
+            userDwellings = 0;
+        else {
+            for(int i = 1; i < koreaProvince.length; i++){
+                if(koreaProvince[i].equals(global.getResidence()))
+                    userDwellings = i;
+            }
+        }
     }
 
     @Override
@@ -103,6 +119,34 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
 
         txtmypageEmail = (TextView)view.findViewById(R.id.txtmypageEmail);
         txtmypageEmail.setText(userEmail);
+
+        // 사용자 프로필 이미지
+        Thread mThread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(global.getProfile().getProfileImageUrl());
+                    URLConnection conn = url.openConnection();
+                    conn.setDoInput(true);
+                    conn.connect();
+                    BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+                    bm = BitmapFactory.decodeStream(bis);
+                    bis.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        mThread.start();
+
+        try{
+            mThread.join();
+            imgMyPage.setImageBitmap(bm);
+            Log.d("IMAGE", "성공");
+        }catch(Exception e){
+            Log.d("IMAGE", "실패");
+            e.printStackTrace();
+        }
     }
 
     @Override

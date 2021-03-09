@@ -166,6 +166,8 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                         Log.d("CREATE_BOOKMARK", "존재하는 북마크");
                     }
                 });
+
+                // 북마크 삭제 기능
             }
        });
         card_view_address_text.setOnClickListener(new View.OnClickListener(){

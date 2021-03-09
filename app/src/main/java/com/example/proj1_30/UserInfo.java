@@ -13,6 +13,12 @@ public class UserInfo {
         this.email = email;
     }
 
+    public UserInfo(String sex, int age, String residence){
+        this.sex = sex;
+        this.age = age;
+        this.residence = residence;
+    }
+
     public String getUsr_name() {
         return usr_name;
     }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="korea_province">
+        <item> 선택 안 함</item>
         <item> 서울특별시 </item>
         <item> 경기도 </item>
         <item> 대전 </item>
