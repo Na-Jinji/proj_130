@@ -59,6 +59,9 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
     TextView card_view_sum_text;
     TextView card_view_details_text;
 
+    private RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
+    private GlobalApplication global = GlobalApplication.getGlobalApplicationContext();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,8 +149,25 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                 // 북마크 추가 기능
                 card_view_heart_icon.setColorFilter(Color.parseColor("#FFD72626"));
                 Toast.makeText(getApplicationContext(), "북마크 등록되었습니다.", Toast.LENGTH_SHORT).show();
+
+                Bookmark bookmark = new Bookmark(place_name, global.getEmail());
+                retrofitAPI.createBookmark(bookmark).enqueue(new Callback<Bookmark>() {
+                    @Override
+                    public void onResponse(Call<Bookmark> call, Response<Bookmark> response) {
+                        if(response.isSuccessful()){
+                            Bookmark mark = response.body();
+                            Log.d("CREATE_BOOKMARK", "성공");
+                            Log.d("CREATE_BOOKMARK", mark.getTitle());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Bookmark> call, Throwable t) {
+                        Log.d("CREATE_BOOKMARK", "존재하는 북마크");
+                    }
+                });
             }
-        });
+       });
         card_view_address_text.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {

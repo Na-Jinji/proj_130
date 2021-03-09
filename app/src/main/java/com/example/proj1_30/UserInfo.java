@@ -8,12 +8,9 @@ public class UserInfo {
     private int age;
     private String residence;
 
-    public UserInfo(String usr_name, String email, String sex, int age, String residence) {
+    public UserInfo(String usr_name, String email) {
         this.usr_name = usr_name;
         this.email = email;
-        this.sex = sex;
-        this.age = age;
-        this.residence = residence;
     }
 
     public String getUsr_name() {

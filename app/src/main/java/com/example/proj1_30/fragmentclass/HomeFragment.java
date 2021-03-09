@@ -21,6 +21,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.proj1_30.Data;
 import com.example.proj1_30.R;
 import com.example.proj1_30.RetrofitAPI;
+import com.example.proj1_30.RetrofitClient;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -76,12 +77,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
 
         // Springboot RestAPI
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://3.36.136.219:8080")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        RetrofitAPI retrofitAPI = retrofit.create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
         retrofitAPI.getTitles().enqueue(new Callback<List<String>>(){
             @Override
             public void onResponse(@NonNull Call<List<String>> call, @NonNull Response<List<String>> response){

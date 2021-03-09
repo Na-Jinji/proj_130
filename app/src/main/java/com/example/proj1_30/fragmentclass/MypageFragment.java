@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.proj1_30.GlobalApplication;
 import com.example.proj1_30.MypageEditActivity;
 import com.example.proj1_30.R;
 
@@ -34,6 +36,8 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
     private String userName, userEmail, userSex;
     private Integer userAge, userDwellings;
     private String[] koreaProvince;
+
+    private GlobalApplication global = GlobalApplication.getGlobalApplicationContext();
 
     public MypageFragment() {
     }
@@ -58,11 +62,11 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
         koreaProvince = getResources().getStringArray(R.array.korea_province);
 
         // 사용자 프로필 - 서버 DB에서 읽어오기
-        // 사용자 프로필 설정 - 임시
-        userName = "설지우";
-        userEmail = "jeewoo1025@gmail.com";
-        userSex = "여자";
-        userAge = 25;
+        userName = global.getProfile().getNickname();
+        userEmail = global.getEmail();
+        userSex = global.getSex();
+        userAge = global.getAge();
+        // 거주지 추후 수정
         userDwellings = 2;
     }
 

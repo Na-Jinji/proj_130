@@ -30,10 +30,17 @@ import com.kakao.util.exception.KakaoException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class LoginActivity extends AppCompatActivity {
     private SessionCallback sessionCallback = new SessionCallback();
     private Button btn_custom_login;
-    private Button btn_custom_logout;
+    private RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
+    private UserInfo info;
+    private GlobalApplication global = GlobalApplication.getGlobalApplicationContext();
+    //private Button btn_custom_logout;
     Session session;
 
     @Override
@@ -44,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         Log.e("getKeyHash", ""+getKeyHash(LoginActivity.this));
 
         btn_custom_login = (Button) findViewById(R.id.btn_kakao_login);
-        btn_custom_logout = (Button) findViewById(R.id.btn_kakao_login_out);
+        //btn_custom_logout = (Button) findViewById(R.id.btn_kakao_login_out);
 
         session = Session.getCurrentSession();
         session.addCallback(sessionCallback);
@@ -57,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        /*
         btn_custom_logout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -83,6 +91,8 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+         */
     }
 
     @Override
@@ -146,7 +156,8 @@ public class LoginActivity extends AppCompatActivity {
 
                                 if(email != null){
                                     Log.d("KAKAO_API", "email: " + email);
-                                    ((GlobalApplication)LoginActivity.this.getApplication()).setEmail(email);
+                                    //((GlobalApplication)LoginActivity.this.getApplication()).setEmail(email);
+                                    global.setEmail(email);
                                 }else if(kakaoAccount.emailNeedsAgreement() == OptionalBoolean.TRUE){
                                     // 동의 요청 후 이메일 획득 가능
                                     // 단, 선택 동의로 설정되어 있다면 서비스 이용 시나리오 상에서 반드시 필요한 경우에만 요청해야 합니다.
@@ -156,14 +167,15 @@ public class LoginActivity extends AppCompatActivity {
                                     Log.d("KAKAO_API", "이메일 획득 불가");
                                 }
 
-                                // 프로필
+                                // 프로필(nickname, profile image, thumbnail image)
                                 Profile profile = kakaoAccount.getProfile();
 
                                 if(profile != null){
                                     Log.d("KAKAO_API", "nickname: " + profile.getNickname());
                                     Log.d("KAKAO_API", "profile image: " + profile.getProfileImageUrl());
                                     Log.d("KAKAO_API", "thumbnail image: " + profile.getThumbnailImageUrl());
-                                    ((GlobalApplication)LoginActivity.this.getApplication()).setProfile(profile);
+                                    //((GlobalApplication)LoginActivity.this.getApplication()).setProfile(profile);
+                                    global.setProfile(profile);
                                 }else if(kakaoAccount.profileNeedsAgreement() == OptionalBoolean.TRUE){
                                     // 동의 요청 후 프로필 정보 획득 가능
                                     Log.d("KAKAO_API", "선택적");
@@ -171,7 +183,47 @@ public class LoginActivity extends AppCompatActivity {
                                     // 프로필 획득 불가
                                     Log.d("KAKAO_API", "프로필 획득 불가");
                                 }
+
+                                info = new UserInfo(profile.getNickname(), email);
                             }
+
+                            // 유저 생성
+                            retrofitAPI.createUserInfo(info).enqueue(new Callback<UserInfo>(){
+
+                                @Override
+                                public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+                                    if(response.isSuccessful()){
+                                        UserInfo user = response.body();
+                                        Log.d("CREATE_USER", "성공");
+                                        Log.d("CREATE_USER", user.toString());
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<UserInfo> call, Throwable t) {
+                                    Log.d("CREATE_USER", "존재하는 회원");
+                                    t.printStackTrace();
+                                }
+                            });
+
+                            retrofitAPI.getUserInfo(info.getEmail()).enqueue(new Callback<UserInfo>() {
+                                @Override
+                                public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
+                                    if(response.isSuccessful()){
+                                        UserInfo user = response.body();
+                                        Log.d("GET_USER", "성공");
+                                        Log.d("GET_USER", user.getUsr_name());
+                                        global.setSex(user.getSex());
+                                        global.setAge(user.getAge());
+                                        global.setResidence(user.getResidence());
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<UserInfo> call, Throwable t) {
+                                    Log.d("GET_USER", "실패");
+                                }
+                            });
                             startActivity(intent);
                         }
                     });

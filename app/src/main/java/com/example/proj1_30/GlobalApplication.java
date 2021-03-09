@@ -15,6 +15,9 @@ public class GlobalApplication extends Application {
     private static GlobalApplication instance;
     private String email;
     private Profile profile;
+    private String sex;
+    private int age;
+    private String residence;
 
     public static GlobalApplication getGlobalApplicationContext(){
         if(instance == null){
@@ -44,14 +47,18 @@ public class GlobalApplication extends Application {
     public void setEmail(String email){
         this.email = email;
     }
-
     public Profile getProfile(){
         return profile;
     }
-
     public void setProfile(Profile profile){
         this.profile = profile;
     }
+    public String getSex() { return sex; }
+    public void setSex(String sex) { this.sex = sex; }
+    public int getAge() { return age; }
+    public void setAge(int age) { this.age = age; }
+    public String getResidence() { return residence; }
+    public void setResidence(String residence) { this.residence = residence; }
 
     public class KakaoSDKAdapter extends KakaoAdapter {
 
