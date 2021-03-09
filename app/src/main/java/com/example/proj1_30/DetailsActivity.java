@@ -34,6 +34,7 @@ import com.naver.maps.map.overlay.Overlay;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,6 +62,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
     private RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
     private GlobalApplication global = GlobalApplication.getGlobalApplicationContext();
+    private boolean flag = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,6 +90,31 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         card_view_url_text = (TextView) findViewById(R.id.card_view_url_text);
         card_view_sum_text = (TextView) findViewById(R.id.card_view_sum_text);
         card_view_details_text = (TextView) findViewById(R.id.card_view_details_text);
+
+        // 북마크 여부
+        retrofitAPI.getBookmarks(global.getEmail()).enqueue(new Callback<List<Bookmark>>() {
+            @Override
+            public void onResponse(Call<List<Bookmark>> call, Response<List<Bookmark>> response) {
+                if(response.isSuccessful()){
+                    List<Bookmark> list = response.body();
+                    Log.d("GET_BOOKMARKS", "성공");
+                    for(Bookmark bm : list){
+                        //사용자의 북마크 리스트에 해당 장소가 있다면
+                        if(bm.getTitle().equals(place_name))
+                            flag = true;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Bookmark>> call, Throwable t) {
+                Log.d("GET_BOOKMARKS", "실패");
+            }
+        });
+
+        // 북마크가 되어있는 장소라면 하트 체크
+        if(flag == true)
+            card_view_heart_icon.setColorFilter(Color.parseColor("#FFD72626"));
 
         // NaverMapCallback OnMapReadyCallback
         OnMapReadyCallback callback = this;
@@ -147,27 +174,49 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onClick(View view) {
                 // 북마크 추가 기능
-                card_view_heart_icon.setColorFilter(Color.parseColor("#FFD72626"));
-                Toast.makeText(getApplicationContext(), "북마크 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                if(flag == false) {
+                    card_view_heart_icon.setColorFilter(Color.parseColor("#FFD72626"));
+                    Toast.makeText(getApplicationContext(), "북마크 등록되었습니다.", Toast.LENGTH_SHORT).show();
 
-                Bookmark bookmark = new Bookmark(place_name, global.getEmail());
-                retrofitAPI.createBookmark(bookmark).enqueue(new Callback<Bookmark>() {
-                    @Override
-                    public void onResponse(Call<Bookmark> call, Response<Bookmark> response) {
-                        if(response.isSuccessful()){
-                            Bookmark mark = response.body();
-                            Log.d("CREATE_BOOKMARK", "성공");
-                            Log.d("CREATE_BOOKMARK", mark.getTitle());
+                    Bookmark bookmark = new Bookmark(place_name, global.getEmail());
+                    retrofitAPI.createBookmark(bookmark).enqueue(new Callback<Bookmark>() {
+                        @Override
+                        public void onResponse(Call<Bookmark> call, Response<Bookmark> response) {
+                            if (response.isSuccessful()) {
+                                Bookmark mark = response.body();
+                                Log.d("CREATE_BOOKMARK", "성공");
+                                Log.d("CREATE_BOOKMARK", mark.getTitle());
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<Bookmark> call, Throwable t) {
-                        Log.d("CREATE_BOOKMARK", "존재하는 북마크");
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<Bookmark> call, Throwable t) {
+                            Log.d("CREATE_BOOKMARK", "존재하는 북마크");
+                        }
+                    });
+                    flag = true;
+                }
+                else{  // 북마크 삭제 기능
+                    card_view_heart_icon.setColorFilter(Color.parseColor("#FFFFFF"));
+                    Toast.makeText(getApplicationContext(), "북마크 취소되었습니다.", Toast.LENGTH_SHORT).show();
 
-                // 북마크 삭제 기능
+                    retrofitAPI.deletedBookmark(global.getEmail(), place_name).enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            if(response.isSuccessful()){
+                                String msg = response.body();
+                                Log.d("DELETE_BOOKMARK", "성공");
+                                Log.d("DELETE_BOOKMARK", msg);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            Log.d("DELETE_BOOKMARK", "실패");
+                        }
+                    });
+                    flag = false;
+                }
             }
        });
         card_view_address_text.setOnClickListener(new View.OnClickListener(){
