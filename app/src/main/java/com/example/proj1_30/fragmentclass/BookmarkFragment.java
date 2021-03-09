@@ -40,7 +40,7 @@ public class BookmarkFragment extends Fragment {
     // 북마크 리스트
     private List<Bookmark> bookmarkList;
     // 북마크 title 리스트
-    static List<String> titleList = new ArrayList<String>();
+    private List<String> titleList = new ArrayList<String>();
     static String[] test = {"test1", "test2", "test3"};
 
     public BookmarkFragment() {
@@ -69,8 +69,14 @@ public class BookmarkFragment extends Fragment {
                 if (response.isSuccessful()) {
                     bookmarkList = response.body();
                     Log.d("GET_BOOKMARKS", "성공");
-                    for (int i = 0; i < bookmarkList.size(); i++)
-                        titleList.add(bookmarkList.get(i).getTitle());
+                    Log.d("GET_BOOKMARKS", bookmarkList.get(0).getTitle());
+                    for(Bookmark bookmark : bookmarkList){
+                        titleList.add(bookmark.getTitle());
+                    }
+                    Log.d("SIZE_BOOKMARK", Integer.toString(titleList.size()));
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, titleList);
+                    listView.setAdapter(adapter);
                 }
             }
 
@@ -85,14 +91,8 @@ public class BookmarkFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bookmark, container, false);
-
-
-            Log.d("LISTVIEW", "before Adapter");
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, test);
-            listView = (ListView) view.findViewById(R.id.bookmark_list);
-            listView.setAdapter(adapter);
-            Log.d("LISTVIEW", "성공");
-
+        listView = (ListView) view.findViewById(R.id.bookmark_list);
         return view;
     }
+
 }
