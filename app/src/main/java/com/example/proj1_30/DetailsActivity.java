@@ -96,21 +96,21 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                     Log.d("GET_BOOKMARKS", "성공");
                     for(Bookmark bm : list){
                         //사용자의 북마크 리스트에 해당 장소가 있다면
-                        if(bm.getTitle().equals(place_name))
+                        if(bm.getTitle().equals(place_name)) {
                             flag = true;
+                            // 하트 체크
+                            card_view_heart_icon.setColorFilter(Color.parseColor("#FFD72626"));
+                            Log.d("GET_BOOKMARKS", "flag : " + flag);
+                        }
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<List<Bookmark>> call, Throwable t) {
-                Log.d("GET_BOOKMARKS", "실패");
+                Log.d("GET_BOOKMARKS", "실패" + ", flag: " + flag);
             }
         });
-
-        // 북마크가 되어있는 장소라면 하트 체크
-        if(flag == true)
-            card_view_heart_icon.setColorFilter(Color.parseColor("#FFD72626"));
 
         // NaverMapCallback OnMapReadyCallback
         OnMapReadyCallback callback = this;
@@ -170,7 +170,8 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onClick(View view) {
                 // 북마크 추가 기능
-                if(flag == false) {
+                if(flag == false){
+
                     card_view_heart_icon.setColorFilter(Color.parseColor("#FFD72626"));
                     Toast.makeText(getApplicationContext(), "북마크 등록되었습니다.", Toast.LENGTH_SHORT).show();
 

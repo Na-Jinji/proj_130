@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
+import com.kakao.auth.authorization.accesstoken.AccessToken;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
@@ -55,6 +56,9 @@ public class LoginActivity extends AppCompatActivity {
 
         session = Session.getCurrentSession();
         session.addCallback(sessionCallback);
+
+        AccessToken tokenInfo = session.getTokenInfo();
+        Log.d("TOKEN", tokenInfo.toString());
 
         btn_custom_login.setOnClickListener(new View.OnClickListener(){
 
