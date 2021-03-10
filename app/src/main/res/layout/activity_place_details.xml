@@ -57,9 +57,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_sms_black_18dp"
+                android:src="@drawable/ic_share_24px"
                 android:layout_margin="5dp"
-                android:id="@+id/card_view_kakao_icon"/>
+                android:id="@+id/card_view_share_icon"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -107,7 +107,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
-                                android:layout_marginBottom="10dp">
+                                android:layout_marginBottom="5dp">
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -146,6 +146,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:orientation="horizontal"
+                                            android:gravity="center_vertical"
                                             android:layout_margin="5dp">
                                             <ImageView
                                                 android:layout_width="wrap_content"
@@ -165,6 +166,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:orientation="horizontal"
+                                            android:gravity="center_vertical"
                                             android:layout_margin="5dp">
                                             <ImageView
                                                 android:layout_width="wrap_content"
@@ -184,6 +186,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:orientation="horizontal"
+                                            android:gravity="center_vertical"
                                             android:layout_margin="5dp">
                                             <ImageView
                                                 android:layout_width="wrap_content"
