@@ -1,5 +1,11 @@
 package com.example.proj1_30;
 
+import com.example.proj1_30.api.ApiClient;
+import com.example.proj1_30.api.ApiInterface;
+import com.example.proj1_30.api.PlaceRequestDto;
+import com.example.proj1_30.table.Picture;
+import com.example.proj1_30.table.Place;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -17,11 +23,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.proj1_30.api.ApiClient;
-import com.example.proj1_30.api.ApiInterface;
-import com.example.proj1_30.api.DetailsObject;
-import com.example.proj1_30.table.Picture;
-import com.example.proj1_30.table.Place;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.MapFragment;
@@ -46,7 +47,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
     ImageView card_view_arrow_back_icon;
     ImageView card_view_user_icon;
     ImageView card_view_heart_icon;
-    ImageView card_view_kakao_icon;
+    ImageView card_view_share_icon;
 
     TextView site_name_text;
     TextView card_view_address_text;
@@ -55,6 +56,8 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
     TextView card_view_url_text;
     TextView card_view_sum_text;
     TextView card_view_details_text;
+
+    ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
     private RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
     private GlobalApplication global = GlobalApplication.getGlobalApplicationContext();
@@ -73,11 +76,11 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         // ViewPagerAdapter로부터 넘어오는 intent 처리
         Intent intent = getIntent();
         place_name = intent.getExtras().getString("place_name");
-        Log.d("place_name", place_name);
+
         card_view_arrow_back_icon = (ImageView) findViewById(R.id.card_view_back_icon);
         card_view_user_icon = (ImageView) findViewById(R.id.card_view_user_icon);
         card_view_heart_icon = (ImageView) findViewById(R.id.card_view_heart_icon);
-        card_view_kakao_icon = (ImageView) findViewById(R.id.card_view_kakao_icon);
+        card_view_share_icon = (ImageView) findViewById(R.id.card_view_share_icon);
 
         site_name_text = (TextView) findViewById(R.id.site_name);
         card_view_address_text = (TextView) findViewById(R.id.card_view_address_text);
@@ -116,13 +119,12 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         OnMapReadyCallback callback = this;
 
         // retrofit 객체 생성 후 call 객체로 동기 통신
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         HashMap<String, Object> input = new HashMap<>();
         input.put("name", place_name);
 
         // /api/v1/place로 응답 요청 (비동기)
-        apiInterface.getPlaceByName(new DetailsObject(place_name)).enqueue(new Callback<Place>() {
+        apiInterface.getPlaceByName(new PlaceRequestDto(place_name)).enqueue(new Callback<Place>() {
             @Override
             public void onResponse(Call<Place> call, Response<Place> response) {
                 if (response.isSuccessful()) {
@@ -150,8 +152,6 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                         getSupportFragmentManager().beginTransaction().add(R.id.map_fragment, mapFragment).commit();
                     }
                     mapFragment.getMapAsync(callback);
-
-                    Log.d("Response Success DetailsActivity", place.toString());
                 }
             }
             @Override
@@ -165,7 +165,16 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                 finish();
             }
         });
+        card_view_share_icon.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
 
+                intent.putExtra(Intent.EXTRA_TEXT, ApiClient.BASE_URL+"place/" + String.valueOf(place.getId()));
+                startActivity(Intent.createChooser(intent, "친구에게 공유하기"));
+            }
+        });
         card_view_heart_icon.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -239,7 +248,6 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                 startActivity(intent);
             }
         });
-
     }
 
     // 마커 생성 부분
