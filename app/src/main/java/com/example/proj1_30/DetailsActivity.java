@@ -1,17 +1,10 @@
 package com.example.proj1_30;
 
-import com.example.proj1_30.api.ApiClient;
-import com.example.proj1_30.api.ApiInterface;
-import com.example.proj1_30.api.DetailsObject;
-import com.example.proj1_30.table.Picture;
-import com.example.proj1_30.table.Place;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +17,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.proj1_30.api.ApiClient;
+import com.example.proj1_30.api.ApiInterface;
+import com.example.proj1_30.api.DetailsObject;
+import com.example.proj1_30.table.Picture;
+import com.example.proj1_30.table.Place;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.MapFragment;
@@ -39,8 +37,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
     Place place;
