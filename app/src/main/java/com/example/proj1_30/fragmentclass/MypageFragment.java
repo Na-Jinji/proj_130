@@ -74,6 +74,8 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
         userEmail = global.getEmail();
         if(global.getSex() == null)
             userSex = "선택 안 함";
+        else
+            userSex = global.getSex();
         userAge = global.getAge();
 
         if(global.getResidence() == null)
