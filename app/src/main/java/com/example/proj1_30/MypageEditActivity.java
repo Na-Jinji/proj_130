@@ -1,6 +1,8 @@
 package com.example.proj1_30;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
@@ -16,6 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.BufferedInputStream;
+import java.net.URL;
+import java.net.URLConnection;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +39,7 @@ public class MypageEditActivity extends AppCompatActivity {
     private RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
     private GlobalApplication global = GlobalApplication.getGlobalApplicationContext();
     private String[] koreaProvince;
+    private Bitmap bm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +84,34 @@ public class MypageEditActivity extends AppCompatActivity {
         }
 
         intDwellings = intent.getExtras().getInt("userDwellings");
+
+        // 사용자 프로필 이미지
+        Thread mThread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(global.getProfile().getProfileImageUrl());
+                    URLConnection conn = url.openConnection();
+                    conn.setDoInput(true);
+                    conn.connect();
+                    BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+                    bm = BitmapFactory.decodeStream(bis);
+                    bis.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        mThread.start();
+
+        try{
+            mThread.join();
+            imgMyPageEdit.setImageBitmap(bm);
+            Log.d("IMAGE", "성공");
+        }catch(Exception e){
+            Log.d("IMAGE", "실패");
+            e.printStackTrace();
+        }
 
         // 스피너 어댑터
         Spinner s = (Spinner)findViewById(R.id.spinner);
