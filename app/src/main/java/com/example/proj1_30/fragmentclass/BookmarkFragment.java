@@ -74,7 +74,6 @@ public class BookmarkFragment extends Fragment {
                 if (response.isSuccessful()) {
                     bookmarkList = response.body();
                     Log.d("GET_BOOKMARKS", "성공");
-                    //Log.d("GET_BOOKMARKS", bookmarkList.get(0).getTitle());  // 북마크 아무것도 없을 때 이 로그 때문에 에러
                     for(Bookmark bookmark : bookmarkList){
                         titleList.add(bookmark.getTitle());
                     }

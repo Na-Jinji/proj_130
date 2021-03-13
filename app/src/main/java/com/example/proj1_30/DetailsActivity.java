@@ -213,6 +213,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                     retrofitAPI.deletedBookmark(global.getEmail(), place_name).enqueue(new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
+
                             if(response.isSuccessful()){
                                 String msg = response.body();
                                 Log.d("DELETE_BOOKMARK", "성공");
