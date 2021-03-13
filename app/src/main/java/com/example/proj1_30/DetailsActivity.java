@@ -1,16 +1,11 @@
 package com.example.proj1_30;
 
-import com.example.proj1_30.api.ApiClient;
-import com.example.proj1_30.api.ApiInterface;
-import com.example.proj1_30.api.PlaceRequestDto;
-import com.example.proj1_30.table.Picture;
-import com.example.proj1_30.table.Place;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.proj1_30.api.ApiClient;
+import com.example.proj1_30.api.ApiInterface;
+import com.example.proj1_30.api.PlaceRequestDto;
+import com.example.proj1_30.table.Picture;
+import com.example.proj1_30.table.Place;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.MapFragment;
@@ -182,7 +182,11 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                 if(flag == false){
 
                     card_view_heart_icon.setColorFilter(Color.parseColor("#FFD72626"));
-                    Toast.makeText(getApplicationContext(), "북마크 등록되었습니다.", Toast.LENGTH_SHORT).show();
+
+                    // Toast 커스텀
+                    Toast toast = Toast.makeText(getApplicationContext(), "북마크 등록되었습니다", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP | Gravity.LEFT, 200, 200);
+                    toast.show();
 
                     Bookmark bookmark = new Bookmark(place_name, global.getEmail());
                     retrofitAPI.createBookmark(bookmark).enqueue(new Callback<Bookmark>() {

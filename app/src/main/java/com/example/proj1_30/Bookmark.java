@@ -8,15 +8,17 @@ public class Bookmark {
     private String title;  // 장소 이름
     private String email;
 
-    // 지우가 더 필요한 정보! 주소 & 날짜
-    private Calendar time;   // 날짜
+    // 지우가 더 필요한 정보! 날짜
+    private Calendar cal;
+    private String current_time;
 
     public Bookmark(String title, String email) {
         this.title = title;
         this.email = email;
 
         // 날짜 생성
-        this.time = Calendar.getInstance();
+        this.cal = Calendar.getInstance();
+        this.current_time = "";
     }
 
     public String getTitle() {
@@ -35,10 +37,14 @@ public class Bookmark {
         this.email = email;
     }
 
-    public String getTime() {
+    public void setCurrent_time(String time) { this.current_time = time; }
+
+    public String getCurrent_time() { return this.current_time; }
+
+    public String getTimeFromCal() {
         // 현재 시간을 "XXXX년 XX월 XX일 XX시 XX분" 문자열로 리턴
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy년 MM월dd일 HH시mm분");
-        String format1_time = format1.format(time.getTime());
+        String format1_time = format1.format(cal.getTime());
         return format1_time;
     }
 }

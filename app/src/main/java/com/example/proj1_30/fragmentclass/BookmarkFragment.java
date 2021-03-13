@@ -1,5 +1,7 @@
 package com.example.proj1_30.fragmentclass;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -120,6 +122,53 @@ public class BookmarkFragment extends Fragment {
                 Intent intent = new Intent(getContext(), DetailsActivity.class);
                 intent.putExtra("place_name", bookmarkList.get(position).getTitle().replaceAll(String.valueOf('"'), ""));
                 startActivity(intent);
+            }
+        });
+
+        // 아이템 Long Click 이벤트
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
+                // AlertDialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.MyDialogTheme);
+                //builder.setTitle("주의사항");
+                builder.setMessage(bookmarkList.get(position).getTitle() + "를 북마크에서 삭제하시겠습니까?");
+                builder.setPositiveButton("예",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // 예 선택
+                                Log.d("AAAA", global.getEmail());
+                                removeItem(bookmarkList.get(position).getTitle());
+                                bookmarkList.remove(position);           // 아이템 제거
+
+                                listView.clearChoices();                // listView 선택 초기화
+                                bookmarkAdapter.notifyDataSetChanged();  // listView 갱신
+                            }
+                        });
+                builder.setNegativeButton("아니오", null);
+                builder.show();
+
+                return true;
+            }
+        });
+    }
+
+    // 서버에서 북마크 아이템 삭제
+    public void removeItem(String place_name) {
+        retrofitAPI.deletedBookmark(global.getEmail(), place_name).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(response.isSuccessful()){
+                    String msg = response.body();
+                    Log.d("DELETE_BOOKMARK", "성공");
+                    Log.d("DELETE_BOOKMARK", msg);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d("DELETE_BOOKMARK", "실패");
             }
         });
     }
