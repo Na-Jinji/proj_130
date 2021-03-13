@@ -76,6 +76,7 @@ public class BookmarkFragment extends Fragment {
                     Log.d("GET_BOOKMARKS", "성공");
                     for(Bookmark bookmark : bookmarkList){
                         titleList.add(bookmark.getTitle());
+                        //Log.d("GET_BOOKMARKS", bookmark.getCreation_date());
                     }
                     Log.d("SIZE_BOOKMARK", Integer.toString(titleList.size()));
 
