@@ -24,13 +24,14 @@
             android:value="@string/Kakao_app_key" />
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".IntroActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity" />
         <activity android:name=".DetailsActivity" />
         <activity android:name=".HomeActivity" />
     </application>

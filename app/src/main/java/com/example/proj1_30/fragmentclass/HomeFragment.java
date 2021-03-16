@@ -24,6 +24,11 @@ import com.example.proj1_30.RetrofitAPI;
 import com.example.proj1_30.RetrofitClient;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.kakao.auth.ApiResponseCallback;
+import com.kakao.auth.AuthService;
+import com.kakao.auth.Session;
+import com.kakao.auth.network.response.AccessTokenInfoResponse;
+import com.kakao.network.ErrorResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +80,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        AuthService.getInstance()
+                .requestAccessTokenInfo(new ApiResponseCallback<AccessTokenInfoResponse>() {
+                    @Override
+                    public void onSessionClosed(ErrorResult errorResult) {
+                        Log.e("KAKAO_API", "homefragment : 세션이 닫혀 있음: " + errorResult);
+                    }
+
+                    @Override
+                    public void onFailure(ErrorResult errorResult) {
+                        Log.e("KAKAO_API", "토큰 정보 요청 실패: " + errorResult);
+                    }
+
+                    @Override
+                    public void onSuccess(AccessTokenInfoResponse result) {
+                        Log.i("KAKAO_API", "사용자 아이디: " + result.getUserId());
+                        Log.i("KAKAO_API", "남은 시간(s): " + result.getExpiresInMillis());
+                    }
+                });
 
         // Springboot RestAPI
         RetrofitAPI retrofitAPI = RetrofitClient.getApiService();

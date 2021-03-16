@@ -136,27 +136,56 @@
             android:textAppearance="@style/MyPageTxt"
             android:gravity="center|left"/>
     </LinearLayout>
+
     <LinearLayout
-        android:id="@+id/layoutMyPageEdit"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:layout_marginBottom="20dp"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/mypage_edit"
-        android:onClick="onClick">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MY 편집"
-            android:textAppearance="@style/MyPageTxt"
-            android:layout_marginRight="10dp"/>
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:src="@drawable/ic_settings" />
+        android:layout_marginBottom="20dp">
+
+        <LinearLayout
+            android:id="@+id/layoutLogout"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:background="@drawable/mypage_edit"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:onClick="onClick">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="로그아웃"
+                android:textAppearance="@style/MyPageTxt" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutMyPageEdit"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/mypage_edit"
+            android:onClick="onClick">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MY 편집"
+                android:textAppearance="@style/MyPageTxt"
+                android:layout_marginRight="10dp"/>
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_settings" />
+        </LinearLayout>
+
     </LinearLayout>
+
 
 </RelativeLayout>

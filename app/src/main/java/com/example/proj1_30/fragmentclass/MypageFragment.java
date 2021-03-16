@@ -15,14 +15,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.proj1_30.GlobalApplication;
+import com.example.proj1_30.LoginActivity;
 import com.example.proj1_30.MypageEditActivity;
 import com.example.proj1_30.R;
+import com.kakao.network.ErrorResult;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.UnLinkResponseCallback;
 
 import java.io.BufferedInputStream;
 import java.net.URL;
@@ -46,6 +51,7 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
 
     private GlobalApplication global = GlobalApplication.getGlobalApplicationContext();
     private Bitmap bm;
+    private LinearLayout layoutLogout;
 
     public MypageFragment() {
     }
@@ -70,13 +76,24 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
         koreaProvince = getResources().getStringArray(R.array.korea_province);
 
         // 사용자 프로필 - 서버 DB에서 읽어오기
-        userName = global.getProfile().getNickname();
-        userEmail = global.getEmail();
+        if(global.getProfile() == null)
+            userName = "없음";
+        else
+            userName = global.getProfile().getNickname();
+        if(global.getEmail() == null)
+            userEmail = "없음";
+        else
+            userEmail = global.getEmail();
+
         if(global.getSex() == null)
             userSex = "선택 안 함";
         else
             userSex = global.getSex();
-        userAge = global.getAge();
+
+        if(global.getAge() == 0)
+            userAge = 0;
+        else
+            userAge = global.getAge();
 
         if(global.getResidence() == null)
             userDwellings = 0;
@@ -105,6 +122,10 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
 
         layoutMyPageEdit = (LinearLayout)view.findViewById(R.id.layoutMyPageEdit);
         layoutMyPageEdit.setOnClickListener(this);
+
+        // 로그아웃 버튼 onClickListener 상속
+        layoutLogout = (LinearLayout)view.findViewById(R.id.layoutLogout);
+        layoutLogout.setOnClickListener(this);
 
         // Textview
         txtMypageName = (TextView)view.findViewById(R.id.txtMypageName);
@@ -164,8 +185,37 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
                 intent.putExtra("userDwellings", userDwellings);
                 startActivityForResult(intent, REQUEST_MYPAGE_EDIT);
                 break;
+            case R.id.layoutLogout: {
+                // 카카오 로그아웃
+                Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                /*
+                UserManagement.getInstance()
+                        .requestUnlink(new UnLinkResponseCallback() {
+                            @Override
+                            public void onSessionClosed(ErrorResult errorResult) {
+                                Log.d("KAKAO_API", "mypage : 세션이 닫혀 있음: " + errorResult);
+                            }
+
+                            @Override
+                            public void onFailure(ErrorResult errorResult) {
+                                Log.d("KAKAO_API", "연결 끊기 실패: " + errorResult);
+
+                            }
+
+                            @Override
+                            public void onSuccess(Long result) {
+                                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                                Log.d("KAKAO_API", "연결 끊기 성공. id: " + result);
+                                Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                                startActivity(intent);
+                            }
+                        });
+                break;
+                 */
+            }
         }
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
