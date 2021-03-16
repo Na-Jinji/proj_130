@@ -25,7 +25,6 @@ public class SessionCallback implements ISessionCallback {
     // 로그인에 성공한 상태
     @Override
     public void onSessionOpened(){
-        Log.d("KAKAO_API", "SessionCallback onSessionOpened()");
         requestMe();
     }
 
@@ -134,7 +133,6 @@ public class SessionCallback implements ISessionCallback {
                                 Log.d("GET_USER", "실패");
                             }
                         });
-                        Log.d("KAKAO_API", "before startactivity");
                     }
                 });
     }

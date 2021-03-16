@@ -142,6 +142,10 @@ public class MypageEditActivity extends AppCompatActivity {
                 intent.putExtra("userSex", strSex);
                 setResult(RESULT_OK, intent);
 
+                global.setAge(userAge);
+                global.setResidence(koreaProvince[userDwellings]);
+                global.setSex(strSex);
+
                 // 서버 DB에 사용자 정보 변경 사항 저장
                 UserInfo info = new UserInfo(strSex, userAge, koreaProvince[userDwellings]);
 

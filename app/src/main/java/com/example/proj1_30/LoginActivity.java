@@ -19,6 +19,8 @@ import com.kakao.auth.Session;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import static java.lang.Thread.sleep;
+
 public class LoginActivity extends AppCompatActivity {
     private SessionCallback sessionCallback = new SessionCallback();
     private Button btn_custom_login;
@@ -41,13 +43,22 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                session.open(AuthType.KAKAO_LOGIN_ALL, LoginActivity.this);
+                try {
+                    session.open(AuthType.KAKAO_LOGIN_ALL, LoginActivity.this);
+                    sleep(1000);
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                /*
                 if(session.isOpened()) {
                     Log.d("KAKAO_API", "LoginActivity : 세션오픈 된 상태");
-
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                 }
+
+                 */
             }
         });
 

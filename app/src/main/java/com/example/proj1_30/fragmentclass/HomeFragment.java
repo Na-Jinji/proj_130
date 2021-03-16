@@ -81,25 +81,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        AuthService.getInstance()
-                .requestAccessTokenInfo(new ApiResponseCallback<AccessTokenInfoResponse>() {
-                    @Override
-                    public void onSessionClosed(ErrorResult errorResult) {
-                        Log.e("KAKAO_API", "homefragment : 세션이 닫혀 있음: " + errorResult);
-                    }
-
-                    @Override
-                    public void onFailure(ErrorResult errorResult) {
-                        Log.e("KAKAO_API", "토큰 정보 요청 실패: " + errorResult);
-                    }
-
-                    @Override
-                    public void onSuccess(AccessTokenInfoResponse result) {
-                        Log.i("KAKAO_API", "사용자 아이디: " + result.getUserId());
-                        Log.i("KAKAO_API", "남은 시간(s): " + result.getExpiresInMillis());
-                    }
-                });
-
         // Springboot RestAPI
         RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
         retrofitAPI.getTitles().enqueue(new Callback<List<String>>(){

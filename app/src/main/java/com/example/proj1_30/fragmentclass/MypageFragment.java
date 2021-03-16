@@ -22,16 +22,28 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.proj1_30.GlobalApplication;
+import com.example.proj1_30.HomeActivity;
 import com.example.proj1_30.LoginActivity;
 import com.example.proj1_30.MypageEditActivity;
 import com.example.proj1_30.R;
+import com.example.proj1_30.RetrofitAPI;
+import com.example.proj1_30.RetrofitClient;
+import com.example.proj1_30.UserInfo;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.kakao.usermgmt.callback.UnLinkResponseCallback;
 
 import java.io.BufferedInputStream;
 import java.net.URL;
 import java.net.URLConnection;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+import static java.lang.Thread.sleep;
 
 public class MypageFragment extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
@@ -49,6 +61,7 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
     private Integer userAge, userDwellings;
     private String[] koreaProvince;
 
+    private RetrofitAPI retrofitAPI = RetrofitClient.getApiService();
     private GlobalApplication global = GlobalApplication.getGlobalApplicationContext();
     private Bitmap bm;
     private LinearLayout layoutLogout;
@@ -76,30 +89,30 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
         koreaProvince = getResources().getStringArray(R.array.korea_province);
 
         // 사용자 프로필 - 서버 DB에서 읽어오기
-        if(global.getProfile() == null)
+        if (global.getProfile() == null)
             userName = "없음";
         else
             userName = global.getProfile().getNickname();
-        if(global.getEmail() == null)
+        if (global.getEmail() == null)
             userEmail = "없음";
         else
             userEmail = global.getEmail();
 
-        if(global.getSex() == null)
+        if (global.getSex() == null)
             userSex = "선택 안 함";
         else
             userSex = global.getSex();
 
-        if(global.getAge() == 0)
+        if (global.getAge() == 0)
             userAge = 0;
         else
             userAge = global.getAge();
 
-        if(global.getResidence() == null)
+        if (global.getResidence() == null)
             userDwellings = 0;
         else {
-            for(int i = 1; i < koreaProvince.length; i++){
-                if(koreaProvince[i].equals(global.getResidence()))
+            for (int i = 1; i < koreaProvince.length; i++) {
+                if (koreaProvince[i].equals(global.getResidence()))
                     userDwellings = i;
             }
         }
@@ -188,30 +201,16 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
             case R.id.layoutLogout: {
                 // 카카오 로그아웃
                 Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
-                /*
-                UserManagement.getInstance()
-                        .requestUnlink(new UnLinkResponseCallback() {
-                            @Override
-                            public void onSessionClosed(ErrorResult errorResult) {
-                                Log.d("KAKAO_API", "mypage : 세션이 닫혀 있음: " + errorResult);
-                            }
-
-                            @Override
-                            public void onFailure(ErrorResult errorResult) {
-                                Log.d("KAKAO_API", "연결 끊기 실패: " + errorResult);
-
-                            }
-
-                            @Override
-                            public void onSuccess(Long result) {
-                                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                                Log.d("KAKAO_API", "연결 끊기 성공. id: " + result);
-                                Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
-                                startActivity(intent);
-                            }
-                        });
+                UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
+                    @Override
+                    public void onCompleteLogout() {
+                        Log.d("KAKAO_API", "로그아웃 완료");
+                        global.init();
+                        Intent login = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(login);
+                    }
+                });
                 break;
-                 */
             }
         }
     }

@@ -60,6 +60,14 @@ public class GlobalApplication extends Application {
     public String getResidence() { return residence; }
     public void setResidence(String residence) { this.residence = residence; }
 
+    public void init(){
+        this.setEmail(null);
+        this.setProfile(null);
+        this.setAge(0);
+        this.setSex(null);
+        this.setResidence(null);
+    }
+
     public class KakaoSDKAdapter extends KakaoAdapter {
 
         @Override
