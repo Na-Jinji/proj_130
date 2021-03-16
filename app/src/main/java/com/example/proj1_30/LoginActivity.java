@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     session.open(AuthType.KAKAO_LOGIN_ALL, LoginActivity.this);
-                    sleep(1000);
+                    sleep(2000);
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                 } catch (InterruptedException e) {
