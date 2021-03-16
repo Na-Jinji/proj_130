@@ -138,7 +138,6 @@ public class BookmarkFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 // 예 선택
-                                Log.d("AAAA", global.getEmail());
                                 removeItem(bookmarkList.get(position).getTitle());
                                 bookmarkList.remove(position);           // 아이템 제거
 

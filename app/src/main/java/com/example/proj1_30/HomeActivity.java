@@ -1,7 +1,14 @@
 package com.example.proj1_30;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,17 +21,21 @@ import com.example.proj1_30.fragmentclass.MypageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
-    BottomNavigationView navView;
+    private BottomNavigationView navView;
 
     // Fragment
-    BookmarkFragment bookmarkFragment;
-    HomeFragment homeFragment;
-    MypageFragment mypageFragment;
+    private BookmarkFragment bookmarkFragment;
+    private HomeFragment homeFragment;
+    private MypageFragment mypageFragment;
+
+    public static Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        mContext = this;
 
         // Bottom Navigation Bar
         navView = findViewById(R.id.bottomNav);
@@ -65,5 +76,20 @@ public class HomeActivity extends AppCompatActivity {
     public void replaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment, fragment).commit();
+    }
+
+    // 커스텀 토스트 생성하기
+    public void makeCustomToast(String str, Context context) {
+        LayoutInflater inflater = getLayoutInflater();
+        View toastDesign = inflater.inflate(R.layout.toast_design, (ViewGroup)findViewById(R.id.toast_design_root));
+
+        TextView txt = toastDesign.findViewById(R.id.txtToast);
+        txt.setText(str);
+
+        Toast toast = new Toast(context);
+        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP, 0, 200);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(toastDesign);
+        toast.show();
     }
 }

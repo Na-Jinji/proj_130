@@ -15,7 +15,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -145,7 +144,10 @@ public class MypageEditActivity extends AppCompatActivity {
 
                 // 서버 DB에 사용자 정보 변경 사항 저장
                 UserInfo info = new UserInfo(strSex, userAge, koreaProvince[userDwellings]);
-                Toast.makeText(getApplicationContext(), "프로필이 변경되었습니다.", Toast.LENGTH_SHORT).show();
+
+                // Toast 커스텀
+                ((HomeActivity)HomeActivity.mContext).makeCustomToast("프로필이 변경되었습니다", getApplicationContext());
+
                 retrofitAPI.updateUserInfo(global.getEmail(), info).enqueue(new Callback<UserInfo>() {
                     @Override
                     public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
