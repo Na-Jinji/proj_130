@@ -5,11 +5,9 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -184,9 +182,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                     card_view_heart_icon.setColorFilter(Color.parseColor("#FFD72626"));
 
                     // Toast 커스텀
-                    Toast toast = Toast.makeText(getApplicationContext(), "북마크 등록되었습니다", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.TOP | Gravity.LEFT, 200, 200);
-                    toast.show();
+                    ((HomeActivity)HomeActivity.mContext).makeCustomToast("북마크 등록되었습니다", getApplicationContext());
 
                     Bookmark bookmark = new Bookmark(place_name, global.getEmail());
                     retrofitAPI.createBookmark(bookmark).enqueue(new Callback<Bookmark>() {
@@ -208,7 +204,9 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                 }
                 else{  // 북마크 삭제 기능
                     card_view_heart_icon.setColorFilter(Color.parseColor("#FFFFFF"));
-                    Toast.makeText(getApplicationContext(), "북마크 취소되었습니다.", Toast.LENGTH_SHORT).show();
+
+                    // Toast 커스텀
+                    ((HomeActivity)HomeActivity.mContext).makeCustomToast("북마크 취소되었습니다", getApplicationContext());
 
                     retrofitAPI.deletedBookmark(global.getEmail(), place_name).enqueue(new Callback<String>() {
                         @Override

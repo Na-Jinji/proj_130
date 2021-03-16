@@ -198,6 +198,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        // 검색기록 reset
+        editSearch.setText("");
+    }
+
+    @Override
     public void onClick(View view) {
         TextView tmp = (TextView)view;
         String value = tmp.getText().toString();
