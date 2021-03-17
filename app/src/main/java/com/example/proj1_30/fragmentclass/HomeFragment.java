@@ -22,13 +22,10 @@ import com.example.proj1_30.Data;
 import com.example.proj1_30.R;
 import com.example.proj1_30.RetrofitAPI;
 import com.example.proj1_30.RetrofitClient;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.kakao.auth.ApiResponseCallback;
-import com.kakao.auth.AuthService;
-import com.kakao.auth.Session;
-import com.kakao.auth.network.response.AccessTokenInfoResponse;
-import com.kakao.network.ErrorResult;
+import com.example.proj1_30.api.ApiClient;
+import com.example.proj1_30.api.ApiInterface;
+import com.example.proj1_30.api.PlaceRequestDto;
+import com.example.proj1_30.table.Place;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,10 +33,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import static java.lang.Thread.sleep;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
@@ -55,10 +48,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private EditText editSearch;
     private TextView txtSubTitle;
 
-    private Retrofit flask;
-    private RetrofitAPI flaskAPI;
+    private ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     private ViewPager2 viewPager2;
-    private List<String> recommend_list;
     private List<String> titleList;
 
     public HomeFragment() {
@@ -98,13 +89,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 t.printStackTrace();
             }
         });
-
-        // Flask Server
-        flask = new Retrofit.Builder()
-                .baseUrl("http://3.36.136.219:5000")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        flaskAPI = flask.create(RetrofitAPI.class);
     }
 
     @Override
@@ -193,7 +177,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         if(value.equals("") || value.length() <= 0)
             return;
 
-        setPlacesVisible(false, null, "Recommendations");
+        setPlacesVisible(false, null, value + "와 비슷한 추천 관광지");
         editSearch.setText(value);
         viewPager2.setVisibility(View.VISIBLE);
         setRecommend_list(value);
@@ -251,47 +235,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    // Flask API에서 추천 관광지 받아오기
     public void setRecommend_list(String item) {
-        JsonObject input = new JsonObject();
-        input.addProperty("name", item);
-
-        flaskAPI.postRecommend(input).enqueue(new Callback<JsonObject>(){
+        apiInterface.getRecommendedPlaceByName(new PlaceRequestDto(item)).enqueue(new Callback<List<Place>>(){
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<List<Place>> call, Response<List<Place>> response) {
                 if(response.isSuccessful()){
-                    JsonObject object = response.body();
-                    JsonArray jsonlist= object.getAsJsonArray("recommended_landmarks");
-                    Log.d("POST TEST", jsonlist.toString());
+                    List<Place> place = response.body();
 
-                    recommend_list = new ArrayList<>();
-                    for(int i = 0; i < 5; i++)
-                        recommend_list.add(jsonlist.get(i).toString());
-                    Log.d("POST TEST", recommend_list.get(0));
-                    Log.d("POST TEST", "성공");
-
-                    try{
-                        sleep(1000);
-                    }catch(InterruptedException e){
-                        e.printStackTrace();
-                    }
                     ArrayList<Data> list = new ArrayList<>();
-                    /*
-                    list.add(new Data(android.R.color.black,recommend_list.get(0)));
-                    list.add(new Data(android.R.color.holo_red_light, recommend_list.get(1)));
-                    list.add(new Data(android.R.color.holo_green_dark, recommend_list.get(2)));
-                    list.add(new Data(android.R.color.holo_orange_dark, recommend_list.get(3)));
-                    list.add(new Data(android.R.color.holo_blue_light, recommend_list.get(4)));
-                     */
-                    Log.d("IMG TEST", "before list add");
-                    list.add(new Data("https://jinhee-bucket.s3.ap-northeast-2.amazonaws.com/%EC%88%B2%EB%A8%B8%EB%A6%AC%EB%9A%9D%EB%B0%A9%EA%B8%B8/0.png",recommend_list.get(0)));
-                    list.add(new Data("https://jinhee-bucket.s3.ap-northeast-2.amazonaws.com/%EC%8B%A0%EB%9D%BC%EC%99%95%EA%B2%BD%EC%88%B2/0.png", recommend_list.get(1)));
-                    list.add(new Data("https://jinhee-bucket.s3.ap-northeast-2.amazonaws.com/%EC%98%81%EC%A7%80%26%EC%98%81%EC%A7%80%EC%84%9D%EB%B6%88%EC%A2%8C%EC%83%81/0.png", recommend_list.get(2)));
-                    list.add(new Data("https://jinhee-bucket.s3.ap-northeast-2.amazonaws.com/%ED%99%94%EB%9E%91%EC%9D%98+%EC%96%B8%EB%8D%95(JTBC+%EC%BA%A0%ED%95%91%ED%81%B4%EB%9F%BD+%EC%B4%AC%EC%98%81%EC%A7%80)/0.png", recommend_list.get(3)));
-                    list.add(new Data("https://jinhee-bucket.s3.ap-northeast-2.amazonaws.com/%ED%9D%A5%EB%8D%95%EC%99%95%EB%A6%89/0.png", recommend_list.get(4)));
-                    Log.d("IMG TEST", "after list add");
+                    for(int i = 0; i < place.size(); i++){
+                        list.add(new Data(place.get(i).getPicture().get(0).getUrl(), place.get(i).getName()));
+                    }
+
                     viewPager2.setAdapter(new ViewPagerAdapter(list));
-                    Log.d("IMG TEST", "after setAdapter");
                 }
                 else{
                     Log.d("POST TEST", "response 실패");
@@ -299,7 +255,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<List<Place>> call, Throwable t) {
                 Log.d("POST TEST", "실패");
                 t.printStackTrace();
             }
