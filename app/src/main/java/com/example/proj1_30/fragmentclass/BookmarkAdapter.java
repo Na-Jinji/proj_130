@@ -49,7 +49,7 @@ public class BookmarkAdapter extends BaseAdapter {
             viewHolder = (ViewHolder)itemLayout.getTag();
 
         viewHolder.bookmarkTitle.setText(mData.get(i).getTitle());
-        viewHolder.bookmarkTime.setText(mData.get(i).getCreation_date());
+        viewHolder.bookmarkTime.setText(mData.get(i).getDateFormat());
 
         return itemLayout;
     }

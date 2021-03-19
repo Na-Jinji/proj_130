@@ -276,22 +276,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         e.printStackTrace();
                     }
                     ArrayList<Data> list = new ArrayList<>();
-                    /*
-                    list.add(new Data(android.R.color.black,recommend_list.get(0)));
-                    list.add(new Data(android.R.color.holo_red_light, recommend_list.get(1)));
-                    list.add(new Data(android.R.color.holo_green_dark, recommend_list.get(2)));
-                    list.add(new Data(android.R.color.holo_orange_dark, recommend_list.get(3)));
-                    list.add(new Data(android.R.color.holo_blue_light, recommend_list.get(4)));
-                     */
-                    Log.d("IMG TEST", "before list add");
+
+
                     list.add(new Data("https://jinhee-bucket.s3.ap-northeast-2.amazonaws.com/%EC%88%B2%EB%A8%B8%EB%A6%AC%EB%9A%9D%EB%B0%A9%EA%B8%B8/0.png",recommend_list.get(0)));
                     list.add(new Data("https://jinhee-bucket.s3.ap-northeast-2.amazonaws.com/%EC%8B%A0%EB%9D%BC%EC%99%95%EA%B2%BD%EC%88%B2/0.png", recommend_list.get(1)));
                     list.add(new Data("https://jinhee-bucket.s3.ap-northeast-2.amazonaws.com/%EC%98%81%EC%A7%80%26%EC%98%81%EC%A7%80%EC%84%9D%EB%B6%88%EC%A2%8C%EC%83%81/0.png", recommend_list.get(2)));
                     list.add(new Data("https://jinhee-bucket.s3.ap-northeast-2.amazonaws.com/%ED%99%94%EB%9E%91%EC%9D%98+%EC%96%B8%EB%8D%95(JTBC+%EC%BA%A0%ED%95%91%ED%81%B4%EB%9F%BD+%EC%B4%AC%EC%98%81%EC%A7%80)/0.png", recommend_list.get(3)));
                     list.add(new Data("https://jinhee-bucket.s3.ap-northeast-2.amazonaws.com/%ED%9D%A5%EB%8D%95%EC%99%95%EB%A6%89/0.png", recommend_list.get(4)));
-                    Log.d("IMG TEST", "after list add");
                     viewPager2.setAdapter(new ViewPagerAdapter(list));
-                    Log.d("IMG TEST", "after setAdapter");
                 }
                 else{
                     Log.d("POST TEST", "response 실패");
