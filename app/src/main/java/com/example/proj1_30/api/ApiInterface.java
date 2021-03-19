@@ -4,6 +4,8 @@ import com.example.proj1_30.table.Place;
 
 import org.json.JSONArray;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -15,4 +17,7 @@ public interface ApiInterface {
 
     @POST("api/v1/place")
     Call<Place> getPlaceByName(@Body PlaceRequestDto dto);
+
+    @POST("api/v1/place/recommend")
+    Call<List<Place>> getRecommendedPlaceByName(@Body PlaceRequestDto dto);
 }
