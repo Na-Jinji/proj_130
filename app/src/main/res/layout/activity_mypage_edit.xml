@@ -198,13 +198,11 @@
             android:gravity="center|left">
             <Spinner
                 android:id="@+id/spinner"
-                android:entries="@array/korea_province"
-                android:spinnerMode="dialog"
-                android:background="@color/white"
+                android:background="@drawable/spinner_background"
+                android:spinnerMode="dropdown"
                 android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/edit6"
-                android:fontFamily="@font/lottehappylight"/>
+                android:layout_height="30dp"
+                android:layout_below="@id/edit6"/>
         </LinearLayout>
     </LinearLayout>
 

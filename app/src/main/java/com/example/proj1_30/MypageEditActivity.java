@@ -9,11 +9,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -113,6 +115,7 @@ public class MypageEditActivity extends AppCompatActivity {
         }
 
         // 스피너 어댑터
+        SpinnerAdapter spinnerApdater = new ArrayAdapter(this, R.layout.item_spinner, koreaProvince);
         Spinner s = (Spinner)findViewById(R.id.spinner);
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -124,6 +127,7 @@ public class MypageEditActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+        s.setAdapter(spinnerApdater);
         s.setSelection(intDwellings);
     }
 
