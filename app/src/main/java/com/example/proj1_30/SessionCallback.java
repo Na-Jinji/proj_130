@@ -113,7 +113,7 @@ public class SessionCallback implements ISessionCallback {
                             @Override
                             public void onFailure(Call<UserInfo> call, Throwable t) {
                                 Log.d("CREATE_USER", "존재하는 회원");
-                                //t.printStackTrace();
+                                t.printStackTrace();
                             }
                         });
 
