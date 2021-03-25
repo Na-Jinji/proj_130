@@ -51,14 +51,6 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                /*
-                if(session.isOpened()) {
-                    Log.d("KAKAO_API", "LoginActivity : 세션오픈 된 상태");
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                }
-
-                 */
             }
         });
 

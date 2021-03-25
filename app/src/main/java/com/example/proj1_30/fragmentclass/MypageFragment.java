@@ -200,7 +200,7 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.layoutLogout: {
                 // 카카오 로그아웃
-                Toast.makeText(getContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                ((HomeActivity)HomeActivity.mContext).makeCustomToast("로그아웃 되었습니다", getContext());
                 UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
                     @Override
                     public void onCompleteLogout() {

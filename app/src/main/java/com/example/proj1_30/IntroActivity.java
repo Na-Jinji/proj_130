@@ -55,7 +55,7 @@ public class IntroActivity extends AppCompatActivity {
                     finish();
                 }
             }
-        }, 3000); // 5초 후 인트로 실행
+        }, 3000); // 3초 동안 인트로 실행
     }
 
     @Override

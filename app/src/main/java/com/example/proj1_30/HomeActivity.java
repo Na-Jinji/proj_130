@@ -1,7 +1,9 @@
 package com.example.proj1_30;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -19,6 +21,7 @@ import com.example.proj1_30.fragmentclass.BookmarkFragment;
 import com.example.proj1_30.fragmentclass.HomeFragment;
 import com.example.proj1_30.fragmentclass.MypageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.kakao.auth.Session;
 
 public class HomeActivity extends AppCompatActivity {
     private BottomNavigationView navView;
@@ -29,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
     private MypageFragment mypageFragment;
 
     public static Context mContext;
+    private long time = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,5 +95,17 @@ public class HomeActivity extends AppCompatActivity {
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(toastDesign);
         toast.show();
+    }
+
+    // 뒤로 가기 두 번 누르면 앱 종료
+    @Override
+    public void onBackPressed(){
+        if(System.currentTimeMillis() - time >= 2000){
+            time = System.currentTimeMillis();
+            ((HomeActivity)HomeActivity.mContext).makeCustomToast("한번 더 누르면 종료됩니다.", getApplicationContext());
+        }
+        else if(System.currentTimeMillis() - time < 2000){
+            finish();
+        }
     }
 }

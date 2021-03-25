@@ -13,6 +13,8 @@ import com.kakao.usermgmt.response.model.UserAccount;
 import com.kakao.util.OptionalBoolean;
 import com.kakao.util.exception.KakaoException;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -95,6 +97,8 @@ public class SessionCallback implements ISessionCallback {
                             info = new UserInfo(profile.getNickname(), email);
                         }
 
+                        Log.d("USER", "getUserInfo() 전");
+
                         // 유저 생성
                         retrofitAPI.createUserInfo(info).enqueue(new Callback<UserInfo>(){
 
@@ -106,15 +110,14 @@ public class SessionCallback implements ISessionCallback {
                                     Log.d("CREATE_USER", user.toString());
                                 }
                             }
-
                             @Override
                             public void onFailure(Call<UserInfo> call, Throwable t) {
                                 Log.d("CREATE_USER", "존재하는 회원");
-                                t.printStackTrace();
+                                //t.printStackTrace();
                             }
                         });
 
-                        // 유저 정보 가져옴
+                        // 유저 정보 가져오기
                         retrofitAPI.getUserInfo(info.getEmail()).enqueue(new Callback<UserInfo>() {
                             @Override
                             public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
@@ -127,7 +130,6 @@ public class SessionCallback implements ISessionCallback {
                                     global.setResidence(user.getResidence());
                                 }
                             }
-
                             @Override
                             public void onFailure(Call<UserInfo> call, Throwable t) {
                                 Log.d("GET_USER", "실패");
