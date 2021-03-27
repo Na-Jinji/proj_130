@@ -36,24 +36,30 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // 토큰 존재 여부 확인하기
+
                 if(Session.getCurrentSession().checkAndImplicitOpen()){
                     // 카카오톡 로그인이 된 경우
                     Log.d("KAKAO_API", "로그인 된 상태");
-                    SessionCallback callback = new SessionCallback();
+                    SessionCallback callback = new SessionCallback(getApplicationContext());
                     callback.requestMe();
-                    Log.d("KAKAO_API", "사용자 정보 가져오기 성공");
-
                     Intent isLogin = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(isLogin);
                     finish();
                 }
-                else{
+                else {
                     Log.d("KAKAO_API", "로그인 안 된 상태");
                     // 카카오톡 로그인이 안 된 경우
                     Intent isNonLogin = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(isNonLogin);
                     finish();
                 }
+
+/*
+                Intent isNonLogin = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(isNonLogin);
+                finish();
+
+ */
             }
         }, 3000); // 3초 동안 인트로 실행
     }

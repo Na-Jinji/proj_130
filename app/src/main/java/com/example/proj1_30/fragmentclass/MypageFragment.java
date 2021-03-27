@@ -111,7 +111,7 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
         if (global.getResidence() == null)
             userDwellings = 0;
         else {
-            for (int i = 1; i < koreaProvince.length; i++) {
+            for (int i = 0; i < koreaProvince.length; i++) {
                 if (koreaProvince[i].equals(global.getResidence()))
                     userDwellings = i;
             }
@@ -199,8 +199,10 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
                 startActivityForResult(intent, REQUEST_MYPAGE_EDIT);
                 break;
             case R.id.layoutLogout: {
-                // 카카오 로그아웃
+
                 ((HomeActivity)HomeActivity.mContext).makeCustomToast("로그아웃 되었습니다", getContext());
+                // 카카오 로그아웃
+                /*
                 UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
                     @Override
                     public void onCompleteLogout() {
@@ -210,7 +212,29 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
                         startActivity(login);
                     }
                 });
-                break;
+                 */
+                // 카카오 연결끊기
+                UserManagement.getInstance().requestUnlink(new UnLinkResponseCallback(){
+
+                    @Override
+                    public void onSuccess(Long result) {
+                        Log.d("KAKAO_API", "연결 끊기 성공. id : " + result);
+                        global.init();
+                        Intent login = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(login);
+                    }
+
+                    @Override
+                    public void onSessionClosed(ErrorResult errorResult) {
+                        Log.e("KAKAO_API", "세션이 닫혀 있음 : " + errorResult);
+                    }
+
+                    @Override
+                    public void onFailure(ErrorResult errorResult){
+                        Log.e("KAKAO_API", "연결 끊기 실패 : " + errorResult);
+                    }
+                });
+               break;
             }
         }
     }

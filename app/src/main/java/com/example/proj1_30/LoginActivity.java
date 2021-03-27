@@ -22,7 +22,7 @@ import java.security.NoSuchAlgorithmException;
 import static java.lang.Thread.sleep;
 
 public class LoginActivity extends AppCompatActivity {
-    private SessionCallback sessionCallback = new SessionCallback();
+    private SessionCallback sessionCallback;
     private Button btn_custom_login;
     Session session;
 
@@ -33,8 +33,9 @@ public class LoginActivity extends AppCompatActivity {
 
         Log.e("getKeyHash", ""+getKeyHash(LoginActivity.this));
 
+        sessionCallback = new SessionCallback(LoginActivity.this);
+
         btn_custom_login = (Button) findViewById(R.id.btn_kakao_login);
-        //btn_custom_logout = (Button) findViewById(R.id.btn_kakao_login_out);
 
         session = Session.getCurrentSession();
         session.addCallback(sessionCallback);
@@ -43,17 +44,22 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                session.open(AuthType.KAKAO_LOGIN_ALL, LoginActivity.this);
+                /*
                 try {
                     session.open(AuthType.KAKAO_LOGIN_ALL, LoginActivity.this);
                     sleep(2000);
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent);
+                    if(session.isOpened()){
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
+                 */
             }
         });
-
     }
 
     @Override
@@ -71,6 +77,12 @@ public class LoginActivity extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
             return;
         }
+    }
+
+    public void redirectLoginActivity(){
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public static String getKeyHash(final Context context) {
