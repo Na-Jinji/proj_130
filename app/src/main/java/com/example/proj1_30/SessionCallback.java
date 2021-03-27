@@ -1,7 +1,6 @@
 package com.example.proj1_30;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import com.kakao.auth.ISessionCallback;
@@ -13,8 +12,6 @@ import com.kakao.usermgmt.response.model.Profile;
 import com.kakao.usermgmt.response.model.UserAccount;
 import com.kakao.util.OptionalBoolean;
 import com.kakao.util.exception.KakaoException;
-
-import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +32,7 @@ public class SessionCallback implements ISessionCallback {
     public void onSessionOpened(){
         requestMe();
         // HomeActivity로 이동
-        ((LoginActivity)mContext).redirectLoginActivity();
+        ((LoginActivity)mContext).redirectHomeActivity();
     }
 
     // 로그인에 실패한 상태

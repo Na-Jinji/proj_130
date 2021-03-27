@@ -6,25 +6,8 @@ import android.os.Handler;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.kakao.auth.ApiResponseCallback;
-import com.kakao.auth.AuthService;
 import com.kakao.auth.Session;
-import com.kakao.auth.api.AuthApi;
-import com.kakao.auth.authorization.accesstoken.AccessToken;
-import com.kakao.auth.network.response.AccessTokenInfoResponse;
-import com.kakao.network.ErrorResult;
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.api.UserApi;
-import com.kakao.usermgmt.callback.MeV2ResponseCallback;
-import com.kakao.usermgmt.response.MeV2Response;
-import com.kakao.usermgmt.response.model.Profile;
-import com.kakao.usermgmt.response.model.UserAccount;
-import com.kakao.util.OptionalBoolean;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class IntroActivity extends AppCompatActivity {
     @Override

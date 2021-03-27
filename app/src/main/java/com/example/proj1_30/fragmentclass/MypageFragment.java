@@ -202,7 +202,7 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
 
                 ((HomeActivity)HomeActivity.mContext).makeCustomToast("로그아웃 되었습니다", getContext());
                 // 카카오 로그아웃
-                /*
+
                 UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
                     @Override
                     public void onCompleteLogout() {
@@ -212,8 +212,9 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
                         startActivity(login);
                     }
                 });
-                 */
+
                 // 카카오 연결끊기
+                /*
                 UserManagement.getInstance().requestUnlink(new UnLinkResponseCallback(){
 
                     @Override
@@ -234,6 +235,7 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
                         Log.e("KAKAO_API", "연결 끊기 실패 : " + errorResult);
                     }
                 });
+                */
                break;
             }
         }

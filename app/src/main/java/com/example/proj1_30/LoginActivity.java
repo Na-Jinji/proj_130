@@ -45,19 +45,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 session.open(AuthType.KAKAO_LOGIN_ALL, LoginActivity.this);
-                /*
-                try {
-                    session.open(AuthType.KAKAO_LOGIN_ALL, LoginActivity.this);
-                    sleep(2000);
-                    if(session.isOpened()){
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        startActivity(intent);
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                 */
             }
         });
     }
@@ -79,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void redirectLoginActivity(){
+    public void redirectHomeActivity(){
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
