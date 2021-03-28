@@ -18,7 +18,6 @@
 <p float="left">
     <img src="https://user-images.githubusercontent.com/53392870/112745585-831d8f00-8fe4-11eb-98e1-1e53d4360530.png" width="30%">
     <img src="https://user-images.githubusercontent.com/53392870/112745590-8fa1e780-8fe4-11eb-8dcd-e2d47daea7fb.png" width="30%">
-    <img src="https://user-images.githubusercontent.com/53392870/112745597-9a5c7c80-8fe4-11eb-8c70-395648cbe3f7.png" width="30%">
 </p>
 
 관광지와 유사한 관광지 5곳을 추천합니다.
