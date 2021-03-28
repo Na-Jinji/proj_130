@@ -84,11 +84,29 @@
         result_data['scores'] = np.array(scores)
         return result_data['title'].values.tolist()
 ```
-<br><br>
- 
-# 5. Server
+<br>
 
-https://github.com/nayoon-kim/ohmymoney-server
+# 5. Server
+애플리케이션 서버는 Spring Boot로 개발하였고, MySQL을 사용하였습니다. AWS EC2, RDS, S3를 이욯하고 있으며, Docker로 서버를 배포하였습니다. 이미지의 경우 s3에 저장해서 외부 접근을 허용하였습니다.
+
+서버 구조는 아래의 [ Server Architecture ](#server-architecture)와 같고 애플리케이션 서버에서 처리하는 주된 기능은 다음과 같습니다. 
+
+* 애플리케이션 서버: https://github.com/nayoon-kim/ohmymoney-server
+
+[ 사용자 ]
+- 사용자 회원가입 및 로그인
+- 사용자 정보 업데이트
+
+[ 관광지 ]
+- 추천 관광지 목록 요청
+- 관광지 목록 가져오기 및 관광지 정보 표시
+
+[ 북마크 ]
+- 북마크 저장 및 삭제
+
+## Server Architecture
+
+<img src="https://user-images.githubusercontent.com/53392870/112744796-10111a00-8fde-11eb-8df3-4565910be6ba.png">
 
 # 6. Source
 * 경주 관광지의 이미지들은 구글 썸네일 이미지로부터 수집하였습니다.
