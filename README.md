@@ -13,9 +13,50 @@
 
 # 3. Features
 ### Search & Display
-### Bookmark
-### MyPage
 
+처음 화면에서 경주 관광지를 검색하면 다음과 같이 관련 관광지 목록이 뜹니다.
+<p float="left">
+    <img src="https://user-images.githubusercontent.com/53392870/112745585-831d8f00-8fe4-11eb-98e1-1e53d4360530.png" width="30%">
+    <img src="https://user-images.githubusercontent.com/53392870/112745590-8fa1e780-8fe4-11eb-8dcd-e2d47daea7fb.png" width="30%">
+    <img src="https://user-images.githubusercontent.com/53392870/112745597-9a5c7c80-8fe4-11eb-8c70-395648cbe3f7.png" width="30%">
+</p>
+
+관광지와 유사한 관광지 5곳을 추천합니다.
+
+<img src="https://user-images.githubusercontent.com/53392870/112745597-9a5c7c80-8fe4-11eb-8c70-395648cbe3f7.png" width="30%">
+
+관광지 중 한 곳을 선택하면 다음과 같이 관광지 관련 정보를 볼 수 있습니다.
+<p float="left">
+    <img src="https://user-images.githubusercontent.com/53392870/112745601-a21c2100-8fe4-11eb-9e76-2006c4f0cd54.png" width="30%">
+    <img src="https://user-images.githubusercontent.com/53392870/112745603-a9432f00-8fe4-11eb-8359-c1ba94c9cc2b.png" width="30%">
+</p>
+
+관광지 페이지에서 공유 버튼을 클릭하면 다음과 같이 공유할 수 있고, 공유 화면은 앱 내의 관광지 정보를 그대로 담은 웹 페이지입니다.
+<p float="left">
+    <img src="https://user-images.githubusercontent.com/53392870/112745610-b19b6a00-8fe4-11eb-9705-f128148057f8.png" width="30%">
+    <img src="https://user-images.githubusercontent.com/53392870/112746538-58363980-8fea-11eb-8377-e389ba22e462.png" width="30%">
+</p>
+
+### Bookmark
+
+관광지 페이지에서 북마크 등록 및 해제를 할 수 있습니다.
+<p float="left">
+    <img src="https://user-images.githubusercontent.com/53392870/112745613-b95b0e80-8fe4-11eb-8ec5-8620047a7c3a.png" width="30%">
+    <img src="https://user-images.githubusercontent.com/53392870/112746617-ddb9e980-8fea-11eb-8156-1a193580a37f.png" width="30%">
+</p>
+
+북마크를 등록하게 되면 북마크 탭에서 북마크 등록 현황을 확인할 수 있습니다. 북마크를 2초 이상 꾹 누르면 북마크 탭에서도 북마크를 해제할 수 있습니다.
+<p float="left">
+    <img src="https://user-images.githubusercontent.com/53392870/112745617-c1b34980-8fe4-11eb-846d-06fc60e6f625.png" width="30%">
+    <img src="https://user-images.githubusercontent.com/53392870/112745631-e27b9f00-8fe4-11eb-88ea-758c7edfc91c.png" width="30%">
+</p>
+
+### MyPage
+마이 페이지 탭을 클릭하면 내 정보를 볼 수 있습니다. My 편집을 클릭하면 나이, 주소, 성별을 수정할 수 있습니다.
+<p float="left">
+    <img src="https://user-images.githubusercontent.com/53392870/112745642-f7583280-8fe4-11eb-93ef-769249f100f1.png" width="20%">
+    <img src="https://user-images.githubusercontent.com/53392870/112745644-f9ba8c80-8fe4-11eb-8dd9-0f6cb6d4df3c.png" width="20%">
+</p>
 
 # 4. Recommendation System
 경주 관광지 추천 시스템은 사용자가 하나의 관광지명을 입력하면 이와 유사한 5개의 경주 관광지들을 추천해주는 추천 시스템입니다. 
