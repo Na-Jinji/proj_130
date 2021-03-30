@@ -16,7 +16,7 @@
 
 
 ### [ 프로그램 흐름도 ]
-<img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/feb88773-4260-4236-87f7-52f1ae0212f8/Untitled.png" width="30%">
+![image](https://user-images.githubusercontent.com/60126234/112986007-eb62a100-919b-11eb-8370-f98e19dbdc3c.png)
 
 
 # 2. Development Stack
