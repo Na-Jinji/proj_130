@@ -16,8 +16,7 @@
 
 
 ### [ 프로그램 흐름도 ]
-
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/feb88773-4260-4236-87f7-52f1ae0212f8/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/feb88773-4260-4236-87f7-52f1ae0212f8/Untitled.png)
+<img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/feb88773-4260-4236-87f7-52f1ae0212f8/Untitled.png" width="30%">
 
 
 # 2. Development Stack
