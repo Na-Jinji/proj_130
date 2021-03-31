@@ -178,7 +178,7 @@
 <br><br>
 
 # 7. Youtube
-
+유튜브 링크 : https://youtu.be/gbRaGe59YAo
 
 # 8. People
 - 김나윤: https://github.com/nayoon-kim
